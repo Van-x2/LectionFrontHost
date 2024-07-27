@@ -26,7 +26,7 @@
     }
 
     fetch(
-      'http://localhost:5313/createlobby',
+      'https://lection-backend.fly.dev/createlobby',
      {
       method: "POST", 
       body: JSON.stringify(lobby),
@@ -52,7 +52,7 @@
     })
 
     async function lobbyHostCom() {
-      let route = `http://localhost:5313/lobbyhost${joincode}`
+      let route = `https://lection-backend.fly.dev/lobbyhost${joincode}`
       const source = new EventSource(route)
       source.addEventListener('message', message => {
         let response = JSON.parse(message.data)
@@ -68,7 +68,7 @@
     let promptContent = {
       prompt: promptField
     }
-    let route = `http://localhost:5313/hostsubmitprompt${joincode}${hostId}`
+    let route = `https://lection-backend.fly.dev/hostsubmitprompt${joincode}${hostId}`
     //submit prompt to mongodb
     fetch(route, 
   {
@@ -93,7 +93,7 @@
       newdatetime: nowDate
     }
     
-    let route = `http://localhost:5313/hostlobbyclose${joincode}${hostId}`
+    let route = `https://lection-backend.fly.dev/hostlobbyclose${joincode}${hostId}`
 
     fetch(route, 
   {
