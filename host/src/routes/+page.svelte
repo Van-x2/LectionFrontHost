@@ -141,6 +141,7 @@
 <div class="w-screen h-screen bg-slate-200 flex items-center justify-center">
   <div>
     <div class="p-16 bg-slate-300">
+      <p class="text-2xl">{joincode}</p>
       <p class="text-4xl">Host Controls</p>
       <input type="text" bind:value={inputField}>
       <br>
