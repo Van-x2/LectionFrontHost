@@ -3,7 +3,7 @@
   let inputField = ''
   let promptField = ''
   let hostId = 808
-  let joincode;
+  let joincode = '';
   let participantsList
   let promptsList
 
