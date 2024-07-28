@@ -113,6 +113,9 @@
     .then(data => {
       console.log(data)
     })
+    setTimeout(() => {
+      location.reload()
+    }, 1000)
   }
 
 
