@@ -1,9 +1,15 @@
 import type { LayoutServerLoad } from "./$types"
 import { MongoClient } from 'mongodb'
 import { MONGO_STRING } from "$env/static/private"
+import { redirect } from "@sveltejs/kit"
 
 
 export const load: LayoutServerLoad = async (event) => {
+    //If user tries to access the root of the site, send them to the /landing page instead
+    if(event.url.pathname === '/') {
+    throw redirect(302, '/landing')
+    }
+
     //define session data from the handle function used in hooks.server
     const session: any = await event.locals.auth()
     //create a MongoDB client to connect with
@@ -51,7 +57,7 @@ export const load: LayoutServerLoad = async (event) => {
         session.user = MongoUser
 
     } else {
-        console.log('Layout ran without user')
+        //console.log('Layout ran without user')
     }
     
 
