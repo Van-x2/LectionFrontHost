@@ -38,8 +38,8 @@
 
                     <div class="h-full w-fit ml-[19px] mr-[15px] flex justify-center flex-col">
                         <a href="/home/upgrade" class="w-[130px] h-[65%] ">
-                            <button class="w-full h-full justify-center border-[2px] rounded-[10px] border-white text-white text-[14px]">
-                                <p>Upgrade</p>
+                            <button class="w-full h-full justify-center border-[2px] rounded-[10px] border-white text-white text-[14px] font-poppins">
+                                <p class="translate-y-[1px]">Upgrade</p>
                             </button>
                         </a>
                     </div>
