@@ -5,7 +5,7 @@
 
 
     <div id="createLobbyMenu" class="w-full h-full bg-gray1 absolute z-0">
-        <div class="w-full h-[30%] flex-col flex justify-end p-4 px-6">
+        <div class="w-full h-[30%] flex-col flex justify-end p-4 px-6 pointer-events-none select-none">
         <div class="w-full flex justify-center items-center">
                 <h1 class=" text-[22px] font-normal font-semibold text-darkgray">
                     Create New Lectionary
@@ -43,23 +43,25 @@
         </div>
     </div>
 
-    <div id="preLobbyMenu" class="w-full h-full bg-gray1 absolute z-10">
-        <div class="w-full h-[30%] flex-col flex justify-between p-4 px-4">
+    <div id="preLobbyMenu" class="w-full h-full bg-gray1 absolute -z-10">
+
+
+        <div class="w-full h-[30%] flex-col flex justify-between p-4 px-4 pointer-events-none select-none">
 
 
             <div class="w-full h-12 flex justify-between translate-y-[100px]">
                 <div class="w-[32%] h-[100%] flex">
-                    <div class="w-full h-full flex justify-center items-center font-normal font-bold text-secondary text-[38px] translate-y-[2px]">
+                    <div class="w-full h-full flex justify-center items-center font-normal font-bold text-secondary text-[33px] translate-y-[2px]">
                         <p>00:00</p>
                     </div>
                 </div>
-                <div class="w-[30%] h-[100%] flex">
+                <div class="w-[20%] h-[100%] flex">
                     <div class="w-[50%] h-full flex justify-center items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-[85%] h-[85%] stroke-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-[90%] h-[90%] stroke-secondary">
                             <path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                         </svg>                                                 
                     </div>
-                    <div class="w-[50%] h-full flex justify-center items-center font-normal font-bold text-secondary text-[38px] translate-y-[2px]">
+                    <div class="w-[50%] h-full flex justify-center items-center font-normal font-bold text-secondary text-[34px] translate-y-[2px]">
                         <p>5</p>
                     </div>
                 </div>
@@ -72,9 +74,9 @@
             </div>
 
 
-            </div>
+        </div>
 
-            <div class="w-full h-[70%] flex flex-col items-center justify-between p-4 px-6">
+        <div class="w-full h-[70%] flex flex-col items-center justify-between p-4 px-6">
                 <div class="w-full h-fit">
                     <div class="w-full h-[200px] rounded-[15px] mt-4">
                         <div class="w-full h-full rounded-[15px] bg-gray1 transition duration-100 border-2 border-primary">
@@ -105,17 +107,23 @@
                         </p>
                     </div>
                 </div>
-            </div>
-    </div>
+        </div>
 
 
     </div>
 
-    <div class="flex-grow bg-white">
+
+    </div>
+
+    <div class="flex-grow bg-white relative">
 
 
-        <div id="createLobbyMain" class="w-full h-full flex justify-center items-center">
-            <p class="text-darkgray font-normal font-bold text-[30px] -translate-y-24">Create a Lectionary to Invite Students</p>
+        <div id="createLobbyMain" class="w-full h-full flex justify-center items-center absolute">
+            <p class="text-darkgray font-normal font-semibold text-[30px] -translate-y-24">Create a Lectionary to Invite Students</p>
+        </div>
+
+        <div id="preLobbyMain" class="w-full h-full flex justify-center items-center absolute">
+            <p class="text-darkgray font-normal font-semibold text-[30px] -translate-y-24">Create a Lectionary to Invite Students</p>
         </div>
 
 
