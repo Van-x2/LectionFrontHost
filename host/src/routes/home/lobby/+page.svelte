@@ -1,4 +1,22 @@
-<div class="w-full h-full flex">
+<script lang="ts">
+    import { page } from "$app/stores"
+    let list = [
+        {name: 'bill', response: 'This is a test', status: 0},
+        {name: 'john', response: 'Cool this works!', status: 2},
+        {name: 'ned', response: 'This is a test', status: 1},
+        {name: 'fred', response: 'Look at this respones!', status: 1},
+        {name: 'bill', response: 'This is a test', status: 0},
+        {name: 'john', response: 'Cool this works!', status: 3},
+        {name: 'ned', response: 'This is a test', status: 1},
+        {name: 'fred', response: 'Look at this respones!', status: 2},
+        {name: 'bill', response: 'This is a test', status: 1},
+        {name: 'john', response: 'Cool this works!', status: 3},
+        {name: 'ned', response: 'This is a test', status: 2},
+        {name: 'fred', response: 'Look at this respones!', status: 3},
+    ]
+</script>
+
+<div id="parentPage" class="w-full h-full flex  overflow-hidden">
 
 
     <div class="w-[380px] h-full bg-gray1 border-r-[3px] border-accent relative">
@@ -43,7 +61,7 @@
         </div>
     </div>
 
-    <div id="preLobbyMenu" class="w-full h-full bg-gray1 absolute -z-10">
+    <div id="preLobbyMenu" class="w-full h-full bg-gray1 absolute z-10">
 
 
         <div class="w-full h-[30%] flex-col flex justify-between p-4 px-4 pointer-events-none select-none">
@@ -118,12 +136,175 @@
     <div class="flex-grow bg-white relative">
 
 
-        <div id="createLobbyMain" class="w-full h-full flex justify-center items-center absolute">
+        <div id="createLobbyMain" class="w-full h-full flex justify-center items-center absolute p-8 text-center z-0 bg-white">
             <p class="text-darkgray font-normal font-semibold text-[30px] -translate-y-24">Create a Lectionary to Invite Students</p>
         </div>
 
-        <div id="preLobbyMain" class="w-full h-full flex justify-center items-center absolute">
-            <p class="text-darkgray font-normal font-semibold text-[30px] -translate-y-24">Create a Lectionary to Invite Students</p>
+        <div id="preLobbyMain" class="w-full h-full absolute z-10 bg-white">
+            <div class="w-full h-full relative flex-col flex">
+                <div class="w-full h-[20%] flex items-end shadow-lg">
+                    <p class="ml-4 mb-4 font-normal font-semibold text-[30px] text-darkgray">
+                        Participants:
+                    </p>
+                </div>
+    
+                <div class="w-full h-[98%] overflow-y-auto">
+                    <ul>
+                        {#each list as item, i}
+
+                        {#if item.status == 0}
+                        <li>
+                            <div class="w-full h-[45px] border-b-2 relative">
+    
+                                <div class="w-full h-full pl-[10px] absolute z-10 flex">
+                                    <div class="w-fit h-full zinc-400 pr-4 flex items-center">
+                                        <p class="text-darkgray font-poppins translate-y-1 text-[20px] font-semibold">
+                                            {item.name}
+                                        </p>
+                                    </div>
+                                    <div class="flex-grow h-full flex justify-between">
+                                        <div class="w-full h-full flex relative">
+                                            <div class="h-full w-[20px] flex justify-center items-center text-[40px] pointer-events-none select-none">⋅</div>
+                                            <div class="h-full flex-grow flex items-center">
+                                                <p class="translate-y-1 font-poppins text-[17px] italic pl-4 text-darkgray">
+                                                
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="w-[150px] h-ful flex justify-center items-center">
+                                            <p class="font-poppins font-medium translate-y-1 text-[23px] italic text-primary">
+                                                Joined
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+    
+                                <div class="w-full h-full absolute z-0 flex">
+                                    <div class="w-2/3 h-full"></div>
+                                    <div class="w-1/3 h-full bg-gradient-to-r from-transparent to-[#a8c4d0]"></div>
+                                </div>
+    
+                            </div>
+                        </li>
+                        {/if}
+
+                        {#if item.status == 1}
+                        <li>
+                            <div class="w-full h-[45px] border-b-2 relative">
+    
+                                <div class="w-full h-full pl-[10px] absolute z-10 flex">
+                                    <div class="w-fit h-full zinc-400 pr-4 flex items-center">
+                                        <p class="text-darkgray font-poppins translate-y-1 text-[20px] font-semibold">
+                                            {item.name}
+                                        </p>
+                                    </div>
+                                    <div class="flex-grow h-full flex justify-between">
+                                        <div class="w-full h-full flex relative">
+                                            <div class="h-full w-[20px] flex justify-center items-center text-[40px] pointer-events-none select-none">⋅</div>
+                                            <div class="h-full flex-grow flex items-center">
+                                                <p class="translate-y-1 font-poppins text-[17px] italic pl-4 text-darkgray">
+                                                    {item.response}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="w-[150px] h-ful flex justify-center items-center">
+                                            <p class="font-poppins font-medium translate-y-1 text-[23px] italic text-green-600">
+                                                Replied
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+    
+                                <div class="w-full h-full absolute z-0 flex">
+                                    <div class="w-2/3 h-full"></div>
+                                    <div class="w-1/3 h-full bg-gradient-to-r from-transparent to-green-200"></div>
+                                </div>
+    
+                            </div>
+                        </li>
+                        {/if}
+
+                        {#if item.status == 2}
+                        <li>
+                            <div class="w-full h-[45px] border-b-2 relative">
+    
+                                <div class="w-full h-full pl-[10px] absolute z-10 flex">
+                                    <div class="w-fit h-full zinc-400 pr-4 flex items-center">
+                                        <p class="text-darkgray font-poppins translate-y-1 text-[20px] font-semibold">
+                                            {item.name}
+                                        </p>
+                                    </div>
+                                    <div class="flex-grow h-full flex justify-between">
+                                        <div class="w-full h-full flex relative">
+                                            <div class="h-full w-[20px] flex justify-center items-center text-[40px] pointer-events-none select-none">⋅</div>
+                                            <div class="h-full flex-grow flex items-center">
+                                                <p class="translate-y-1 font-poppins text-[17px] italic pl-4 text-darkgray">
+                                                    
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="w-[150px] h-ful flex justify-center items-center">
+                                            <p class="font-poppins font-medium translate-y-1 text-[23px] italic text-yellow-500">
+                                                Pending
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+    
+                                <div class="w-full h-full absolute z-0 flex">
+                                    <div class="w-2/3 h-full"></div>
+                                    <div class="w-1/3 h-full bg-gradient-to-r from-transparent to-yellow-100"></div>
+                                </div>
+    
+                            </div>
+                        </li>
+                        {/if}
+
+                        {#if item.status == 3}
+                        <li>
+                            <div class="w-full h-[45px] border-b-2 relative">
+    
+                                <div class="w-full h-full pl-[10px] absolute z-10 flex">
+                                    <div class="w-fit h-full zinc-400 pr-4 flex items-center">
+                                        <p class="text-darkgray font-poppins translate-y-1 text-[20px] font-semibold">
+                                            {item.name}
+                                        </p>
+                                    </div>
+                                    <div class="flex-grow h-full flex justify-between">
+                                        <div class="w-full h-full flex relative">
+                                            <div class="h-full w-[20px] flex justify-center items-center text-[40px] pointer-events-none select-none">⋅</div>
+                                            <div class="h-full flex-grow flex items-center">
+                                                <p class="translate-y-1 font-poppins text-[17px] italic pl-4 text-darkgray">
+                                                    
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="w-[150px] h-ful flex justify-center items-center">
+                                            <p class="font-poppins font-medium translate-y-1 text-[23px] italic text-red-700">
+                                            Silent
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+    
+                                <div class="w-full h-full absolute z-0 flex">
+                                    <div class="w-2/3 h-full"></div>
+                                    <div class="w-1/3 h-full bg-gradient-to-r from-transparent to-red-200"></div>
+                                </div>
+    
+                            </div>
+                        </li>
+                        {/if}
+
+
+                        {/each}
+                </div>
+    
+            </div>
         </div>
 
 

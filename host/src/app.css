@@ -7,3 +7,6 @@
 	src: url('/fonts/LibreCaslonText-BoldItalic.ttf') format('woff2');
 	font-weight: 400;
 }
+body {
+	overscroll-behavior: none;
+  }
