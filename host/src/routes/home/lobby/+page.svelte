@@ -184,13 +184,6 @@
             currentParticipationPercentage = ((studentParticipationCount/currentResponseSet.length)*100)
             currentParticipationPercentage = Math.trunc(currentParticipationPercentage)
 
-
-            console.log('partpercent:'+ currentParticipationPercentage)
-
-
-
-            console.log(lastConfidencePercentage, lastParticipationPercentage)
-
             if(currentPhase === 1) {
                 if(currentConfidencePercentage >= 30) {
                 currentConfidenceMeterColor = 'bg-red-500'
@@ -221,23 +214,14 @@
                 participationMeter.classList.add(currentParticipationColor)
                 lastParticipationColor = currentParticipationColor
 
-                console.log('last confidence %:'+lastConfidencePercentage)
-                console.log('current confidence %:'+currentConfidencePercentage)
-
-                confidenceMeter.classList.remove(`w-[${lastConfidencePercentage}%]`)
-                confidenceMeter.classList.add(`w-[${currentConfidencePercentage}%]`)
-
-                console.log('last parti %:'+lastParticipationPercentage)
-                console.log('current parti %:'+currentParticipationPercentage)
-                participationMeter.classList.remove(`w-[${lastParticipationPercentage}%]`)
-                participationMeter.classList.add(`w-[${currentParticipationPercentage}%]`)
 
 
-                //console.log('last'+lastConfidencePercentage, lastParticipationPercentage)
-                //console.log('current'+currentConfidencePercentage, currentParticipationPercentage)
 
-                lastConfidencePercentage = currentConfidencePercentage
-                lastParticipationPercentage = currentParticipationPercentage
+
+                confidenceMeter.style.width = `${currentConfidencePercentage}%`
+
+                participationMeter.style.width = `${currentParticipationPercentage}%`
+
             }
 
 
@@ -282,14 +266,8 @@
 
 
         //resets stats card
-        confidenceMeter.classList.remove(`w-[${lastConfidencePercentage}%]`)
-        confidenceMeter.classList.add(`w-[0%]`)
-
-        participationMeter.classList.remove(`w-[${lastParticipationPercentage}%]`)
-        participationMeter.classList.add(`w-[0%]`)
-
-        lastParticipationPercentage = 0
-        lastConfidencePercentage = 0
+        participationMeter.style.width = `0%`
+        confidenceMeter.style.width = `0%`
 
 
 
@@ -549,7 +527,7 @@
                                 </div>
                                 <div class="w-full h-[55%] pr-4 pl-1 py-2">
                                     <div class="w-full h-full bg-gray2 rounded-[10px]">
-                                        <div id="participationMeter" class="h-full w-[0%] bg-darkgray rounded-[10px] transition-all duration-500">
+                                        <div id="participationMeter" style="width: 0%" class="h-full bg-darkgray rounded-[10px] transition-all duration-500">
 
                                         </div>
                                     </div>
@@ -563,7 +541,7 @@
                                 </div>
                                 <div class="w-full h-[55%] pr-4 pl-1 py-2">
                                     <div class="w-full h-full bg-gray2 rounded-[10px]">
-                                        <div id="confidenceMeter" class="h-full w-[0%] bg-darkgray rounded-[10px] transition-all duration-500">
+                                        <div id="confidenceMeter" style="width: 0%" class="h-full  bg-darkgray rounded-[10px] transition-all duration-500">
 
                                         </div>
                                     </div>
