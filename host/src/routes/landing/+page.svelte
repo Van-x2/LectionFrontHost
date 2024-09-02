@@ -1,6 +1,6 @@
 <script lang="ts">
 //Media Imports
-import leftLandingPhoto from '/workspaces/LectionFrontHost/host/src/media/images/leftLandingPhoto.png'
+import leftLandingPhoto from '../../media/images/leftLandingPhoto.png'
 import { onMount } from 'svelte';
 import { signIn } from '@auth/sveltekit/client';
 import { signOut } from '@auth/sveltekit/client';
