@@ -7,19 +7,10 @@
 
     //defining stuffs
 
-    //placeholder data
-    let list = [
-        {name: 'bill', response: 'This is a test', status: 0},
-        {name: 'john', response: 'Cool this works!', status: 2},
-        {name: 'ned', response: 'This is a test', status: 1},
-    ]
-
     let groupInputField = ''
     let promptField = ''
     let hostId = $page.data.session?.user?._id
     let joincode = ''
-    let participantsList: any
-    let promptsList: any
     let currentPrompt: number = 0
     let currentResponseSet: any = []
     let currentPhase: number = 0
@@ -28,8 +19,6 @@
     let minutes: number = 0
     let currentConfidencePercentage: number = 0
     let currentParticipationPercentage: number = 0
-    let lastConfidencePercentage: number = 0
-    let lastParticipationPercentage: number = 0
     let lastConfidenceMeterColor: string = 'bg-darkgray'
     let lastParticipationColor: string = 'bg-darkgray'
     let currentConfidenceMeterColor: string
@@ -398,7 +387,7 @@
             </div>
         </div>
 
-        <div id="preLobbyMenu" class="w-full h-full bg-gray1 absolute -z-10">
+        <div id="preLobbyMenu" class="w-full h-full bg-gray1 absolute -z-10 overflow-y-auto">
 
 
             <div class="w-full h-[30%] flex-col flex justify-between p-4 px-4 pointer-events-none select-none">
@@ -446,7 +435,7 @@
                                 <p class="translate-y-[2px]">Begin the Lectionary</p>
                             </button>
                         </div>
-                        <div class="w-full h-[220px] mt-4 rounded-[15px] shadow-none flex justify-center items-center text-center">
+                        <div class="w-full h-[70px] mt-4 rounded-[15px] shadow-none flex justify-center items-center text-center">
                             <p id="preLobbyMenuInformText" class="w-[90%] text-[18px] font-poppins font-medium text-primary transition-opacity duration-100">Students will not be able to join a Lectionary after it has begun.</p>
                         </div>
                     </div>
@@ -470,7 +459,7 @@
 
         </div>
 
-        <div id="activeLobbyMenu" class="w-full h-full bg-gray1 absolute -z-20">
+        <div id="activeLobbyMenu" class="w-full h-full bg-gray1 absolute -z-20 overflow-y-auto">
 
 
             <div class="w-full h-[30%] flex-col flex justify-between p-4 px-4 pointer-events-none select-none">
@@ -573,8 +562,8 @@
         </div>
 
         <div id="preLobbyMain" class="w-full h-full absolute -z-10 bg-white">
-            <div class="w-full h-full relative flex-col flex">
-                <div class="w-full h-[20%] flex items-end shadow-lg">
+            <div class="w-full h-full relative">
+                <div class="w-full h-[165px] flex items-end shadow-lg">
                     <p class="ml-4 mb-4 font-normal font-semibold text-[30px] text-darkgray">
                         Participants:
                     </p>
