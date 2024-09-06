@@ -10,6 +10,7 @@ declare global {
 
         interface Session {
             user?: MongoUser;
+            BulletinBoardEntries?: BulletinBoardEntries;
         }
 		interface MongoUser {
             _id: ObjectId | string;
@@ -19,6 +20,9 @@ declare global {
             lobbyMinutesUsed: number;
             membershipLevel: number;
             accountCreatedOn: Date;
+        }
+        interface BulletinBoardEntries {
+        
         }
 	}
 }
