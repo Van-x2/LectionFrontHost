@@ -1,26 +1,6 @@
 <script lang="ts">
     import { page } from "$app/stores"
-    let list = [
-        'Coffee',
-        'Tea',
-        'Stuff',
-        'Test',
-        'More Stuff',
-        'More Stuff',
-        'Coffee',
-        'Tea',
-        'Stuff',
-        'Test',
-        'More Stuff',
-        'More Stuff',
-        'Coffee',
-        'Tea',
-        'Stuff',
-        'Test',
-        'More Stuff',
-        'More Stuff',
-
-    ]
+    let BulletinItems: any = $page.data.session?.BulletinBoardEntries
 </script>
 <div class="w-full h-full overflow-hidden flex-col">
     <div class="w-full h-[120px]">
@@ -88,11 +68,14 @@
                 </div>
                 <div class=" w-full h-[74%]">
                     <div class=" text-[13px] w-full h-full pl-8 text-darkgray font-poppins font-medium overflow-auto leading-[15px] max-h-[95%] scroll overflow-y-scroll">
-                        <ol>
-                            {#each list as item, i}
-                                <li>{i+1} - {item}</li>
+                        <ol>    
+                            {#if (BulletinItems.length >= 1)}
+                                {#each BulletinItems as item, i}
+                                <li> - {item.TextContent}</li>
                                 <br>
-                            {/each}
+                                {/each}        
+                            {/if}
+
                           </ol> 
                     </div>
                 </div>
