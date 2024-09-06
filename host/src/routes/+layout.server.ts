@@ -38,6 +38,11 @@ export const load: LayoutServerLoad = async (event) => {
                 image: session.user.image,
                 lobbyMinutesUsed: 0,
                 membershipLevel: 0,
+                stats: {
+                    lectionariesStarted: 0,
+                    studentsTaught: 0,
+                    promptsSubmitted: 0
+                },
                 acountCreatedOn: new Date(),
             }
 
