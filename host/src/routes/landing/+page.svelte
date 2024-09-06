@@ -38,7 +38,7 @@ onMount(() => {
                 </div>
             </div>
         </div>
-        <div class="h-full w-[30%] ">
+        <div class="h-full w-[30%] bg-red-500 flex flex-col pointer-events-none">
         </div>
     </div>
     <div class="w-full h-fit bg-slate-300">
