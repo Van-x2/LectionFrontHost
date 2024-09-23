@@ -32,13 +32,15 @@
                     </p>
                   </button>
                 </div>
-                <div class="w-[110px] h-full rounded-full border-[1px] border-primary ml-[35px] flex justify-center items-center group hover:bg-primary duration-100">
-                    <button on:click={() => {signIn('github')}} class="w-full h-full flex justify-center items-center group-hover:text-white duration-100">
+                <a href="/user">
+                  <div class="w-[110px] h-full rounded-full border-[1px] border-primary ml-[35px] flex justify-center items-center group hover:bg-primary duration-100">
+                    <div class="w-full h-full flex justify-center items-center group-hover:text-white duration-100">
                       <p class=" translate-y-[2px]">
                         Sign-in
                       </p>
-                    </button>
-                </div>
+                    </div>
+                  </div>
+              </a>
               </div>
             </div>
           </div>

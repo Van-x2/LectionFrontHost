@@ -13,15 +13,29 @@ export const load: LayoutServerLoad = async (event) => {
     //define session data from the handle function used in hooks.server
     const session: any = await event.locals.auth()
 
+    //check if the user is trying to access a page they shouldnt be when signed in
+    if (session?.user) {
+      if(event.url.pathname == '/user') {
+        redirect(302, '/home')
+      }
+      if(event.url.pathname == '/landing') {
+        redirect(302, '/home')
+      }
+    }
+    else {
+      if(event.url.pathname == '/home') {
+        redirect(302, '/user')
+      }
+    }
 
-    //check if the user has an Oauth session
+    //check if the user has an account type session
     if (session?.user) {
         //create a MongoDB client to connect with
         const client = new MongoClient(MONGO_STRING)
         //connect to MongoDB
         await client.connect()
 
-        console.log(`Layout ran with [${session.user.name}]`)
+        console.log(`Layout ran with [${session.user.email}]`)
 
         //defines collection & db in Mongo
         const Users = client.db('Users')
@@ -44,16 +58,14 @@ export const load: LayoutServerLoad = async (event) => {
         //counts how many user documents have an email matching the Oauth session email
         // there should only be 0 or 1 matching documents because email's cant repeat
         const userMatch = await hosts.countDocuments({
-            emails: { $in: [session.user.email] }
+            email: session.user.email
           });
           
           // If there is no matching user document, then create one using Oauth session data
           if (userMatch === 0) {
             // Define the OAuth session data to be sent to MongoDB
             const OauthUser = {
-              emails: [
-                session.user.email,
-              ],
+              email :session.user.email,
               name: session.user.name,
               image: session.user.image,
               lobbyMinutesUsed: 0,
@@ -64,6 +76,9 @@ export const load: LayoutServerLoad = async (event) => {
                 promptsSubmitted: 0,
               },
               accountCreatedOn: new Date(),
+              accountDataComplete: true,
+              emailChangable: false,
+              verified: true,
             };
 
             //create the user doc in Mongo
@@ -73,7 +88,7 @@ export const load: LayoutServerLoad = async (event) => {
         //Pull data from the Mongo user doc with the matching email
         //that was either just created, or recognized to already exist
         const MongoUser = await hosts.findOne({
-            emails: { $in: [session.user.email] }
+            email: session.user.email
           })
         console.log('Data Pulled from mongo')
 
@@ -84,8 +99,6 @@ export const load: LayoutServerLoad = async (event) => {
         session.user = MongoUser
         session.BulletinBoardEntries = BulletinBoardEntries
 
-    } else {
-        //console.log('Layout ran without user')
     }
     
 
