@@ -11,7 +11,7 @@
     let signInText
     let signUpText
 
-    let pageState = 'signIn'
+    let pageState = 'signUp'
 
     if (browser) {
     const cookieState = document.cookie.replace(/(?:(?:^|.*;\s*)pageState\s*\=\s*([^;]*).*$)|^.*$/, "$1");
