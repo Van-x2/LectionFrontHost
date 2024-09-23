@@ -1,5 +1,6 @@
 <script lang="ts">
     import { page } from '$app/stores'
+    import { signOut } from '@auth/sveltekit/client'
 </script>
 <div class="w-screen h-screen">
     <div class="absolute w-full h-[90px] z-30 flex justify-center items-center px-[15px] pt-[15px]">
@@ -57,6 +58,7 @@
                 </div>
             </div>
         </div>
+        <button on:click={()=> {signOut()}}> sign out</button>
     </div>
     <div class="absolute w-full h-full z-20">
     <slot />

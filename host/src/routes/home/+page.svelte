@@ -10,7 +10,7 @@
             <div class="w-full h-full px-6 pb-[2px] flex-col">
                 <div class="w-full h-[20%] flex items-center pl-8 text-[35px] text-accent font-normal italic ">
                     <span class="text-secondary font-black -translate-y-[3px] -translate-x-2 text-[40px]">//</span>
-                    <h1>  Welcome back {$page.data.session?.user?.name}!</h1>
+                    <h1>  Welcome back {($page.data.session?.user?.name)?.split(' ')[0]}!</h1>
                 </div>
                 <div class="w-full h-[80%] flex">
 
@@ -21,7 +21,7 @@
                             </div>
                             <div class="h-1/2 w-full pb-[px] pr-[25px] flex items-end justify-end text-[45px] text-secondary font-poppins font-medium">
                                 <p>
-                                5
+                                {$page.data.session?.user?.stats.lectionariesStarted}
                                 </p>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                             </div>
                             <div class="h-1/2 w-full pb-[px] pr-[25px] flex items-end justify-end text-[45px] text-secondary font-poppins font-medium">
                                 <p>
-                                20
+                                    {$page.data.session?.user?.stats.studentsTaught}
                                 </p>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                             </div>
                             <div class="h-1/2 w-full pb-[px] pr-[25px] flex items-end justify-end text-[45px] text-secondary font-poppins font-medium">
                                 <p>
-                                15
+                                    {$page.data.session?.user?.stats.promptsSubmitted}
                                 </p>
                             </div>
                         </div>

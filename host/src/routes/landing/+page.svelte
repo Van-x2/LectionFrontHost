@@ -12,7 +12,7 @@ onMount(() => {
 
 </script>
 
-<div class="w-full h-full bg-white">
+<div class="w-full h-full">
     <div class="w-full h-[85%] flex justify-center">
         <div class="h-full w-[30%] flex flex-col pointer-events-none">
             <div class="w-full h-[16%]"></div>

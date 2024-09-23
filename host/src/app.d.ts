@@ -16,10 +16,19 @@ declare global {
             _id: ObjectId | string;
             email: string;
             name: string;
+            password: string;
             image: string;
             lobbyMinutesUsed: number;
             membershipLevel: number;
+            stats: {
+                lectionariesStarted: number;
+                studentsTaught: number;
+                promptsSubmitted: number;
+            };
             accountCreatedOn: Date;
+            accountDataComplete: boolean;
+            emailChangable: boolean;
+            verified: boolean;
         }
         interface BulletinBoardEntries {
         
