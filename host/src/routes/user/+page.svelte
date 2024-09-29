@@ -79,7 +79,7 @@
                 </div>
 
             </div>
-            <div class="w-full h-full "></div>
+            <div class="w-full h-full"></div>
         </div>
 
         <div class="w-[50%] h-full relative">
@@ -115,6 +115,8 @@
                 </div>
             </div>
             <div class="w-full h-full flex justify-center items-center relative">
+
+
                 {#if pageState === 'signIn'}
                 <div id="signInCard" transition:fade="{{ duration: 100 }}" class="absolute">
                     <Signincard/>
