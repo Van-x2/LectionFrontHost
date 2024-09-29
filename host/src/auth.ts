@@ -107,7 +107,7 @@ export const { handle } = SvelteKitAuth({
               accountCreatedOn: new Date(),
               accountDataComplete: false,
               emailChangable: true,
-              verified: false
+              verified: true
             }
 
             await hosts.insertOne(newUser)
