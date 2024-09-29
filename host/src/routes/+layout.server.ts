@@ -26,6 +26,12 @@ export const load: LayoutServerLoad = async (event) => {
       if(event.url.pathname == '/home') {
         redirect(302, '/user')
       }
+      if(event.url.pathname == '/home/lobby') {
+        redirect(302, '/user')
+      }
+      if(event.url.pathname == '/home/profile') {
+        redirect(302, '/user')
+      }
     }
 
     //check if the user has an account type session

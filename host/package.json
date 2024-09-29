@@ -27,6 +27,7 @@
 	"dependencies": {
 		"@auth/sveltekit": "^1.4.2",
 		"bcrypt": "^5.1.1",
+		"mailgun.js": "^10.2.3",
 		"mongodb": "^4.0.0-beta.3"
 	}
 }

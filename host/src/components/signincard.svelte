@@ -16,6 +16,8 @@
     let emailWarning: any
     let passwordWarning: any
 
+    let isVerifying: boolean = true
+
     onMount(() => {
     passwordInputField = document.getElementById('passwordInputField')
     emailIcon = document.getElementById('emailIcon')
@@ -117,11 +119,14 @@
 
         </div>
     </div>
+
     <div class="w-full h-[25px] flex items-center pb-2">
         <p class=" font-poppins text-[15px] text-darkgray">Or continue with an email address</p>
     </div>
+
     <div class="w-full h-fit px-2">
 
+        
         <div class="w-full h-[59px] py-[6px] flex relative items-center group">
 
             <p id="emailWarning" class="w-32 h-6 absolute -translate-x-[140px] font-poppins text-[15px] text-center translate-y-1 text-red-700 font-medium duration-200 opacity-0">
@@ -176,11 +181,13 @@
         <div class="w-full h-[59px] py-[6px] flex items-center justify-center">
             {#if ($page.url.searchParams.size > 0)}
             <p class="font-poppins font-semibold text-[17px] text-red-700">
-                Email or password is incorrect
+                Email address is already being used
             </p>
             {/if}
         </div>
 
     </div>
+
+
 
 </div>
