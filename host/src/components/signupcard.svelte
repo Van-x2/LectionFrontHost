@@ -11,7 +11,7 @@
     let verificationCode: string = ''
     let name: string = ''
 
-    //input field warning objects
+    //HTML elements
     let emailIcon: any
     let passwordIcon: any
     let emailWarning: any
@@ -19,8 +19,10 @@
     let nameWarning: any
     let nameIcon: any
     let continueButton: any
+    let verificationWarning: any
 
     let isVerifying = false
+    let isDuplicateEmail = false
 
 
     onMount(() => {
@@ -32,6 +34,9 @@
     nameWarning = document.getElementById('nameWarning')
     nameIcon = document.getElementById('nameIcon')
     continueButton = document.getElementById('continueButton')
+
+
+    
 
 
     //Simulates clicking the continue btn when enter is pressed
@@ -83,7 +88,23 @@
         }, 2000)
        }
        if ((emailCheck == true) && (pwCheck == true) && (nameCheck == true)) {
-        //switch the signup page to verification page
+
+        const response1 = await fetch('/api/verify-email',
+            {
+            method: 'PATCH',
+            body: JSON.stringify({ email: email}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+            }
+        )
+        const responseBody = await response1.json()
+
+        if (responseBody.match == true) {
+        isDuplicateEmail = true
+       }
+       else {
+                //switch the signup page to verification page
         isVerifying = true
 
         console.log('calling endpoint')
@@ -96,6 +117,7 @@
             }
             }
         )
+       }
 
 
 
@@ -120,7 +142,12 @@
             handleSignupFinal()
         }
         else{
+            //The code entered is incorrect
             console.log('verification failed')
+            verificationWarning.classList.add('opacity-100')
+            setTimeout(() => {
+                verificationWarning.classList.remove('opacity-100')
+            },2000)
         }
     }
 
@@ -164,7 +191,7 @@
     </div>
 
     <div class="w-full h-[25px] flex items-center pb-2 my-8">
-        <p class=" font-poppins text-[15px] text-darkgray">A verification code has been sent to your email address, <br> enter the code below to continue signing up </p>
+        <p class=" font-poppins text-[15px] text-darkgray leading-[30px]">A verification code has been sent to: <span class="text-accent font-bold text-[12px]">{email}</span>, <br> enter the code below to continue signing up </p>
     </div>
 
     <div class="w-full h-fit px-2">
@@ -183,11 +210,22 @@
         </div>
 
 
-
         <div class="w-full h-[59px] py-[6px]">
                 <button class="w-full h-full rounded-full bg-secondary active:scale-[97%] duration-100" on:click={handleSignupSecond}>
                     <p class="text-[16px] font-poppins font-semibold text-white translate-y-1">Continue</p>
                 </button>
+        </div>
+
+
+        <div class="w-full h-[25px] flex items-center pb-2 my-8">
+            <p class=" font-poppins text-[15px] text-darkgray">Didn't get a code? check your junk folder, or <button class=" font-bold" on:click={handleSignupFirst}>get another code</button></p>
+        </div>
+
+
+        <div bind:this={verificationWarning} class="w-full h-[59px] py-[6px] flex items-center justify-center opacity-0 duration-100">
+            <p class="font-poppins font-semibold text-[17px] text-red-700">
+                Code is not recognized
+            </p>
         </div>
 
     </div>
@@ -304,7 +342,7 @@
             </div>
 
             <div class="w-full h-[59px] py-[6px] flex items-center justify-center">
-                {#if ($page.url.searchParams.size > 0)}
+                {#if ($page.url.searchParams.size > 0) || (isDuplicateEmail == true)}
                 <p class="font-poppins font-semibold text-[17px] text-red-700">
                     Email address is already being used
                 </p>
