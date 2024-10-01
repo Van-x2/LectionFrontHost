@@ -33,7 +33,7 @@ export const POST: RequestHandler = async ({ request }) => {
     code: randomCode,
   };
 
-  await MongoCollection.insertOne(VerificationDocumentContents).then( () => {console.log(`verification code added to mongo [${randomCode}] [${body.email}]`)})
+  await MongoCollection.insertOne(VerificationDocumentContents)
 
   // Initialize Mailgun with formData
   const mailgun = new Mailgun(formData);
@@ -248,13 +248,12 @@ export const POST: RequestHandler = async ({ request }) => {
           </html>`,
   });
 
-  console.log(`Email sent with Mailgun: ${mailResponse.id}`);
+
 
   return json({ success: true });
 };
 
 export const PUT: RequestHandler = async ({ request }) => {
-  console.log('got the request to check for exisitng codes')
 
   // Deals with turning request body into usable data
   const body = await request.json();
@@ -272,13 +271,35 @@ export const PUT: RequestHandler = async ({ request }) => {
   await MongoCollection.deleteMany({ email: body.email });
 
   if( pulledDoc.code == body.code) {
-    console.log('succesfully verified')
 
 
     return json({ verified: true });
   }
   else{
-    console.log('failed to verify')
     return json({ verified: false});
   }
 };
+
+export const PATCH: RequestHandler = async ({ request }) => {
+  
+	// Deals with turning request body into usable data
+	const body = await request.json();
+  
+	// Connects to Mongodb
+	const client = new MongoClient(MONGO_STRING);
+	await client.connect();
+  
+	const db = client.db('Users');
+	const MongoCollection = db.collection('hosts');
+  
+	const docCount = await MongoCollection.countDocuments({ email: body.email})
+  
+	if( docCount >= 1) {
+  
+  
+	  return json({ match: true });
+	}
+	else{
+	  return json({ match: false});
+	}
+  };
