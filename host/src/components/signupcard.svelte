@@ -9,12 +9,16 @@
     let email: string = ''
     let password: string = ''
     let verificationCode: string = ''
+    let name: string = ''
 
     //input field warning objects
     let emailIcon: any
     let passwordIcon: any
     let emailWarning: any
     let passwordWarning: any
+    let nameWarning: any
+    let nameIcon: any
+    let continueButton: any
 
     let isVerifying = false
 
@@ -25,6 +29,16 @@
     passwordIcon = document.getElementById('passwordIcon')
     emailWarning = document.getElementById('emailWarning')
     passwordWarning = document.getElementById('passwordWarning')
+    nameWarning = document.getElementById('nameWarning')
+    nameIcon = document.getElementById('nameIcon')
+    continueButton = document.getElementById('continueButton')
+
+
+    //Simulates clicking the continue btn when enter is pressed
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') { continueButton.click() }
+    })
+
     })
 
     function passwordShownToggle() {
@@ -40,7 +54,8 @@
 
     async function handleSignupFirst() {
 
-        const pwCheck = (password.length > 1)
+        const pwCheck = (password.length > 0)
+        const nameCheck = (name.length > 0)
         const emailCheck = validateEmail(email)
 
        if(pwCheck == false) {
@@ -59,7 +74,15 @@
             emailIcon.classList.remove('fill-red-700') 
         }, 2000)
        }
-       if ((emailCheck == true) && (pwCheck == true)) {
+       if (nameCheck == false) {
+        nameWarning.classList.add('opacity-100')
+        nameIcon.classList.add('fill-red-700')
+        setTimeout(() => {
+            nameWarning.classList.remove('opacity-100')
+            nameIcon.classList.remove('fill-red-700') 
+        }, 2000)
+       }
+       if ((emailCheck == true) && (pwCheck == true) && (nameCheck == true)) {
         //switch the signup page to verification page
         isVerifying = true
 
@@ -102,11 +125,15 @@
     }
 
     async function handleSignupFinal() {
+        //formats name
+        name = name.split(' ')[0].replace(/\s/g, '').toLowerCase()
+
         const res:any = await signIn(
             "credentials", 
             {
                 email,
                 password,
+                name,
                 type,
                 redirect: true
             }
@@ -210,6 +237,23 @@
 
             <div class="w-full h-[59px] py-[6px] flex relative items-center group">
 
+                <p id="nameWarning" class="w-32 h-6 absolute -translate-x-[140px] font-poppins text-[15px] text-center translate-y-1 text-red-700 font-medium duration-200 opacity-0">
+                    Enter first name
+                </p>
+
+                <div class="h-[75%] aspect-square absolute translate-x-1 flex justify-center items-center">
+
+                    <svg id="nameIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-[55%] aspect-square fill-darkgray group-focus-within:fill-primary">
+                        <path fill-rule="evenodd" d="M4.5 3.75a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V6.75a3 3 0 0 0-3-3h-15Zm4.125 3a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Zm-3.873 8.703a4.126 4.126 0 0 1 7.746 0 .75.75 0 0 1-.351.92 7.47 7.47 0 0 1-3.522.877 7.47 7.47 0 0 1-3.522-.877.75.75 0 0 1-.351-.92ZM15 8.25a.75.75 0 0 0 0 1.5h3.75a.75.75 0 0 0 0-1.5H15ZM14.25 12a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H15a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5h3.75a.75.75 0 0 0 0-1.5H15Z" clip-rule="evenodd" />
+                    </svg>
+                      
+                    
+                </div>
+                <input spellcheck="false" bind:value={name} placeholder="First Name" type="text" class="font-normal text-[15px] text-darkgray flex-grow h-full rounded-[12px] bg-gray1 focus:bg-gray2 focus:text-primary border-2 border-transparent  p-2 appearance-none outline-none focus:ring-0 duration-200 pl-[50px]">
+            </div>
+
+            <div class="w-full h-[59px] py-[6px] flex relative items-center group">
+
                 <p id="emailWarning" class="w-32 h-6 absolute -translate-x-[140px] font-poppins text-[15px] text-center translate-y-1 text-red-700 font-medium duration-200 opacity-0">
                     Enter valid email
                 </p>
@@ -222,7 +266,7 @@
                     </svg>
                     
                 </div>
-                <input spellcheck="false" bind:value={email} type="email" class="font-normal text-[17px] text-darkgray flex-grow h-full rounded-[12px] bg-gray1 focus:bg-gray2 focus:text-primary border-2 border-transparent  p-2 appearance-none outline-none focus:ring-0 duration-200 pl-[50px]">
+                <input spellcheck="false" placeholder="Email" bind:value={email} type="email" class="font-normal text-[15px] text-darkgray flex-grow h-full rounded-[12px] bg-gray1 focus:bg-gray2 focus:text-primary border-2 border-transparent  p-2 appearance-none outline-none focus:ring-0 duration-200 pl-[50px]">
             </div>
 
             <div class="w-full h-[59px] py-[6px] flex relative items-center group">
@@ -234,7 +278,7 @@
                 <div class="w-full h-full absolute pointer-events-none flex justify-end">
                     <div class="h-full aspect-square absolute translate-x-1 flex justify-center items-center">
 
-                        <button class="pointer-events-none group-focus-within:pointer-events-auto translate-x-4" on:mouseenter={passwordShownToggle} on:mouseleave={passwordShownToggle}>
+                        <button class="pointer-events-none group-focus-within:pointer-events-auto translate-x-4" on:mouseenter={passwordShownToggle} on:mouseleave={passwordShownToggle} tabindex="-1">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-[45%] aspect-square fill-accent group-focus-within:opacity-100 opacity-0 transition duration-150">
                                 <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                                 <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z" clip-rule="evenodd" />
@@ -250,11 +294,11 @@
                     </svg>
                 </div>
 
-                <input spellcheck="false" bind:value={password} id="passwordInputField" type="password" class="font-normal text-[17px] text-darkgray flex-grow h-full rounded-[12px] bg-gray1 focus:bg-gray2 focus:text-primary border-2 border-transparent  p-2 appearance-none outline-none focus:ring-0 duration-200 pl-[50px]">
+                <input spellcheck="false" placeholder="Password" bind:value={password} id="passwordInputField" type="password" class="font-normal text-[15px] text-darkgray flex-grow h-full rounded-[12px] bg-gray1 focus:bg-gray2 focus:text-primary border-2 border-transparent  p-2 appearance-none outline-none focus:ring-0 duration-200 pl-[50px]">
             </div>
 
             <div class="w-full h-[59px] py-[6px]">
-                    <button class="w-full h-full rounded-full bg-secondary active:scale-[97%] duration-100" on:click={handleSignupFirst}>
+                    <button id="continueButton" class="w-full h-full rounded-full bg-secondary active:scale-[97%] duration-100" on:click={handleSignupFirst}>
                         <p class="text-[16px] font-poppins font-semibold text-white translate-y-1">Continue</p>
                     </button>
             </div>
@@ -262,7 +306,7 @@
             <div class="w-full h-[59px] py-[6px] flex items-center justify-center">
                 {#if ($page.url.searchParams.size > 0)}
                 <p class="font-poppins font-semibold text-[17px] text-red-700">
-                    Email or password is incorrect
+                    Email address is already being used
                 </p>
                 {/if}
             </div>

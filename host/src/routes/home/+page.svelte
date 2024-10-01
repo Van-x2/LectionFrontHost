@@ -10,7 +10,7 @@
             <div class="w-full h-full px-6 pb-[2px] flex-col">
                 <div class="w-full h-[20%] flex items-center pl-8 text-[35px] text-accent font-normal italic ">
                     <span class="text-secondary font-black -translate-y-[3px] -translate-x-2 text-[40px]">//</span>
-                    <h1>  Welcome back {($page.data.session?.user?.name)?.split(' ')[0]}!</h1>
+                    <h1>  Welcome back {(($page.data.session?.user?.name)?.split(' ')[0] || '').replace(/\s/g, '').replace(/^(.)(.*)$/, (_, first, rest) => first.toUpperCase() + rest.toLowerCase())}!</h1>
                 </div>
                 <div class="w-full h-[80%] flex">
 

@@ -39,6 +39,7 @@ export const { handle } = SvelteKitAuth({
       credentials: {
         email: {},
         password: {},
+        name: {},
         type: {}, //signin or signup
       },
       authorize: async (credentials) => {
@@ -95,7 +96,7 @@ export const { handle } = SvelteKitAuth({
             const newUser = {
               email: credentials.email,
               password: hashedPassword,
-              name: '',
+              name: credentials.name,
               image: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg',
               lobbyMinutesUsed: 0,
               membershipLevel: 0,

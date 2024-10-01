@@ -69,10 +69,13 @@ export const load: LayoutServerLoad = async (event) => {
           
           // If there is no matching user document, then create one using Oauth session data
           if (userMatch === 0) {
+            //Formats user's name via Oauth info
+            const formattedName = session.user.name.split(' ')[0].replace(/\s/g, '').toLowerCase()
+
             // Define the OAuth session data to be sent to MongoDB
             const OauthUser = {
               email :session.user.email,
-              name: session.user.name,
+              name: formattedName,
               image: session.user.image,
               lobbyMinutesUsed: 0,
               membershipLevel: 0,
