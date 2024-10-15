@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { fade } from 'svelte/transition';
+    import { page } from '$app/stores';
     let backgroundSpacer: Element
     let currentPage: string = 'general'
 
@@ -92,19 +94,162 @@
         </div>
     </div>
 </div>
-<div class="w-full flex-grow p-6">
-    {#if currentPage == 'general'}
-    General Settings Page
-    {/if}
+<div class="w-full flex-grow p-4">
+{#key currentPage}
+  <div transition:fade={{ duration: 300 }} class="relative w-full h-full">
+    {#if currentPage === 'general'}
+        <div class="w-full h-full flex flex-col absolute">
 
-    {#if currentPage == 'account'}
-    Account Settings Page
-    {/if}
+        <h1 class="text-[40px] font-medium mb-2 pl-3">General</h1>
 
-    {#if currentPage == 'billing'}
-    Billing Settings Page
-    {/if}
+        <p class="text-[17px] text-accent font-medium mb-6 pl-3">Manage basic details & preferences here</p>
 
+        <div class="w-full flex-grow">
+            <div class="w-full h-full">
+
+                <div class="w-full h-full relative">
+
+                    <div class="w-[95%] h-[2px] bg-gray1 rounded-full"></div>
+
+                    <div class="w-full h-[80px] flex relative">
+        
+                            <div class="w-[20%] h-full flex items-center pl-3">
+                                <p class=" font-medium text-[19px]">First Name</p>
+                            </div>
+        
+                            <div class="w-[71%] h-full pl-24 flex items-center">
+                                <p class=" font-medium text-[19px]">{$page.data.session?.user?.name}</p>
+                            </div>
+        
+                            <div class="w-[9%] h-full flex items-center justify-center">
+                                <button class="w-[55px] h-[40px] bg-white rounded-[10px] border-[2px] border-secondary active:scale-90 transition-all duration-100">
+                                    <p class="text-[15px] font-medium translate-y-[1px]">Edit</p>
+                                </button>
+                            </div>
+        
+                    </div>
+        
+                    <div class="w-[95%] h-[2px] bg-gray1 rounded-full"></div>
+
+                    <div class="w-full h-[80px] flex relative">
+        
+                        <div class="w-[20%] h-full flex items-center pl-3">
+                            <p class=" font-medium text-[19px]">Last Name</p>
+                        </div>
+    
+                        <div class="w-[71%] h-full pl-24 flex items-center">
+                            <p class=" font-medium text-[19px]">{$page.data.session?.user?.name}</p>
+                        </div>
+    
+                        <div class="w-[9%] h-full flex items-center justify-center">
+                            <button class="w-[55px] h-[40px] bg-white rounded-[10px] border-[2px] border-secondary active:scale-90 transition-all duration-100">
+                                <p class="text-[15px] font-medium translate-y-[1px]">Edit</p>
+                            </button>
+                        </div>
+    
+                    </div>
+
+                    <div class="w-[95%] h-[2px] bg-gray1 rounded-full"></div>
+
+                    <div class="w-full h-[160px] flex relative">
+        
+                        <div class="w-[20%] h-full flex items-center pl-3">
+                            <p class=" font-medium text-[19px]">Photo</p>
+                        </div>
+    
+                        <div class="w-[71%] h-full pl-24 flex items-center">
+                            <div class="w-[120px] aspect-square bg-neutral-400 rounded-[10px] border-2 border-gray1 flex justify-center items-center overflow-hidden">
+                                <img src={$page.data.session?.user?.image} />
+
+                            </div>
+                        </div>
+    
+                        <div class="w-[9%] h-full flex items-center justify-center">
+                            <button class="w-[55px] h-[40px] bg-white rounded-[10px] border-[2px] border-secondary active:scale-90 transition-all duration-100">
+                                <p class="text-[15px] font-medium translate-y-[1px]">Edit</p>
+                            </button>
+                        </div>
+    
+                    </div>
+
+                    
+
+
+                </div>
+
+            </div>
+        </div>
+
+        </div>
+    {:else if currentPage === 'account'}
+        <div class="w-full h-full flex flex-col absolute">
+
+        <h1 class="text-[40px] font-medium mb-2 pl-3">Account</h1>
+
+        <p class="text-[17px] text-accent font-medium mb-6 pl-3">Manage account details & preference here</p>
+
+        <div class="w-full flex-grow">
+            <div class="w-full h-full">
+                <div class="w-[95%] h-[2px] bg-gray1 rounded-full"></div>
+
+                <div class="w-full h-[80px] flex relative">
+
+                    <div class="w-[20%] h-full flex items-center pl-3">
+                        <p class=" font-medium text-[19px]">Email</p>
+                    </div>
+
+                    <div class="w-[71%] h-full pl-24 flex items-center">
+                        <p class=" font-medium text-[19px]">{$page.data.session?.user?.email}</p>
+                    </div>
+
+                    <div class="w-[9%] h-full flex items-center justify-center">
+                        <button class="w-[55px] h-[40px] bg-white rounded-[10px] border-[2px] border-secondary active:scale-90 transition-all duration-100">
+                            <p class="text-[15px] font-medium translate-y-[1px]">Edit</p>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="w-[95%] h-[2px] bg-gray1 rounded-full"></div>
+            </div>
+        </div>
+        </div>
+    {:else if currentPage === 'billing'}
+        <div class="w-full h-full flex flex-col absolute">
+
+        <h1 class="text-[40px] font-medium mb-2 pl-3">Billing</h1>
+
+        <p class="text-[17px] text-accent font-medium mb-6 pl-3">Manage billings details & preferences here</p>
+
+        <div class="w-full flex-grow">
+            <div class="w-full h-full">
+                <div class="w-[95%] h-[2px] bg-gray1 rounded-full"></div>
+
+                <div class="w-full h-[80px] flex relative">
+
+                    <div class="w-[20%] h-full flex items-center pl-3">
+                        <p class=" font-medium text-[19px]">First Name</p>
+                    </div>
+
+                    <div class="w-[71%] h-full pl-24 flex items-center">
+                        <p class=" font-medium text-[19px]">{$page.data.session?.user?.name}</p>
+                    </div>
+
+                    <div class="w-[9%] h-full flex items-center justify-center">
+                        <button class="w-[55px] h-[40px] bg-white rounded-[10px] border-[2px] border-secondary active:scale-90 transition-all duration-100">
+                            <p class="text-[15px] font-medium translate-y-[1px]">Edit</p>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="w-[95%] h-[2px] bg-gray1 rounded-full"></div>
+            </div>
+        </div>
+        </div>
+    {/if}
+  </div>
+{/key}
 </div>
 
 
