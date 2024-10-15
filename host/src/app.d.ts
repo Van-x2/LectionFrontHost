@@ -15,7 +15,8 @@ declare global {
 		interface MongoUser {
             _id: ObjectId | string;
             email: string;
-            name: string;
+            firstname: string;
+            lastname: string;
             password: string;
             image: string;
             lobbyMinutesUsed: number;
