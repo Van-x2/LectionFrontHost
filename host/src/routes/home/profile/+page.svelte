@@ -160,8 +160,8 @@
                         </div>
     
                         <div class="w-[71%] h-full pl-24 flex items-center">
-                            <div class="w-[120px] aspect-square bg-neutral-400 rounded-[10px] border-[1px] border-gray1 flex justify-center items-center overflow-hidden">
-                                <img alt="current profile" src={$page.data.session?.user?.image} />
+                            <div class="w-[100px] aspect-square bg-neutral-400 rounded-[10px] border-[3px] border-gray2 flex justify-center items-center overflow-hidden">
+                                <img alt="current profile" src={$page.data.session?.user?.image} class="w-full h-full"/>
 
                             </div>
                         </div>
