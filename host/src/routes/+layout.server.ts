@@ -76,6 +76,7 @@ export const load: LayoutServerLoad = async (event) => {
             const OauthUser = {
               email :session.user.email,
               name: formattedName,
+              lastname: '',
               image: session.user.image,
               lobbyMinutesUsed: 0,
               membershipLevel: 0,
