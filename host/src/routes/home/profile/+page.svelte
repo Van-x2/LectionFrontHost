@@ -287,7 +287,7 @@
 {/if}
 
 {#if currentOptionsMenu === 'photo'}
-<Photo />
+<Photo on:closePopup={closeOptionsMenu}/>
 {/if}
 
 
