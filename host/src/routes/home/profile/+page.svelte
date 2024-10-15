@@ -30,6 +30,7 @@
 </script>
 
 <div id="parentPage" class="w-full h-full  overflow-hidden font-poppins flex flex-col">
+
 <div>
     <div class="w-full h-[107px]">
     </div>
@@ -94,6 +95,7 @@
         </div>
     </div>
 </div>
+
 <div class="w-full flex-grow p-4">
 {#key currentPage}
   <div transition:fade={{ duration: 300 }} class="relative w-full h-full">
@@ -158,8 +160,8 @@
                         </div>
     
                         <div class="w-[71%] h-full pl-24 flex items-center">
-                            <div class="w-[120px] aspect-square bg-neutral-400 rounded-[10px] border-2 border-gray1 flex justify-center items-center overflow-hidden">
-                                <img src={$page.data.session?.user?.image} />
+                            <div class="w-[120px] aspect-square bg-neutral-400 rounded-[10px] border-[1px] border-gray1 flex justify-center items-center overflow-hidden">
+                                <img alt="current profile" src={$page.data.session?.user?.image} />
 
                             </div>
                         </div>
