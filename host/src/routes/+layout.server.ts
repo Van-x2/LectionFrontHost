@@ -1,6 +1,5 @@
 import type { LayoutServerLoad } from "./$types"
-import { MongoClient } from 'mongodb'
-import { MONGO_STRING } from "$env/static/private"
+import { getClient } from "$lib/mongoconnect"
 import { redirect } from "@sveltejs/kit"
 
 
@@ -37,9 +36,7 @@ export const load: LayoutServerLoad = async (event) => {
     //check if the user has an account type session
     if (session?.user) {
         //create a MongoDB client to connect with
-        const client = new MongoClient(MONGO_STRING)
-        //connect to MongoDB
-        await client.connect()
+        const client = getClient()
 
         console.log(`Layout ran with [${session.user.email}]`)
 

@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
-import { MONGO_STRING, MAILGUN_SECRET, MAILGUN_DOMAIN } from '$env/static/private';  // Assume you have MAILGUN_DOMAIN
-import { MongoClient } from 'mongodb';
+import { MAILGUN_SECRET, MAILGUN_DOMAIN } from '$env/static/private'
+import { getClient } from '$lib/mongoconnect'
 import Mailgun from 'mailgun.js';
 import formData from 'form-data';
 
@@ -11,8 +11,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const body = await request.json();
 
   // Connects to Mongodb
-  const client = new MongoClient(MONGO_STRING);
-  await client.connect();
+  const client = getClient()
 
   const db = client.db('OtherData');
   const MongoCollection = db.collection('TempVerificationCodes');
@@ -259,8 +258,7 @@ export const PUT: RequestHandler = async ({ request }) => {
   const body = await request.json();
 
   // Connects to Mongodb
-  const client = new MongoClient(MONGO_STRING);
-  await client.connect();
+  const client = getClient()
 
   const db = client.db('OtherData');
   const MongoCollection = db.collection('TempVerificationCodes');
@@ -286,8 +284,7 @@ export const PATCH: RequestHandler = async ({ request }) => {
 	const body = await request.json();
   
 	// Connects to Mongodb
-	const client = new MongoClient(MONGO_STRING);
-	await client.connect();
+	const client = getClient()
   
 	const db = client.db('Users');
 	const MongoCollection = db.collection('hosts');
