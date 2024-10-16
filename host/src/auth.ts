@@ -1,12 +1,12 @@
 //Auth.ts stuff
-import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, AUTH_MICROSOFT_ENTRA_ID_ID, AUTH_MICROSOFT_ENTRA_ID_SECRET, AUTH_MICROSOFT_ENTRA_ID_TENANT_ID, MONGO_STRING } from "$env/static/private"
+import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, AUTH_MICROSOFT_ENTRA_ID_ID, AUTH_MICROSOFT_ENTRA_ID_SECRET, AUTH_MICROSOFT_ENTRA_ID_TENANT_ID } from "$env/static/private"
 import { SvelteKitAuth } from "@auth/sveltekit"
 import Google from "@auth/sveltekit/providers/google"
 import MicrosoftEntraID from "@auth/sveltekit/providers/microsoft-entra-id"
 import Credentials from "@auth/sveltekit/providers/credentials"
 
 //DB interaction stuff
-import { MongoClient } from "mongodb"
+import { getClient } from "$lib/mongoconnect"
 import bcrypt, { hash } from 'bcrypt'
 import { error } from "console"
 import { redirect } from "@sveltejs/kit"
@@ -46,8 +46,7 @@ export const { handle } = SvelteKitAuth({
         let user: any = null
 
         //MongoDB stuff setup
-        const client = new MongoClient(MONGO_STRING)
-        await client.connect()
+        const client = getClient()
         const users = client.db('Users')
         const hosts = users.collection('hosts')
         
@@ -124,6 +123,8 @@ export const { handle } = SvelteKitAuth({
           }
 
         }
+
+
         return user
       },
       
