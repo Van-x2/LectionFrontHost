@@ -1,3 +1,5 @@
+console.log('Hooks.server Running')
+
 import { connectToDatabase, closeDatabase } from "$lib/mongoconnect"
 
 /** @type {import('@sveltejs/kit').HandleServerError} */
@@ -17,4 +19,3 @@ if (import.meta.hot) {
   }
 
 export { handle } from "./auth"
-console.log('Hooks.server Ran')

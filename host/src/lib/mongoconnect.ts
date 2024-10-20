@@ -5,12 +5,13 @@ let client: MongoClient | null = null
 
 export async function connectToDatabase() {
     if(client && client.topology?.isConnected()) {
+        console.log('connected to MongoDB on existing connection')
         return client
     }
 
+    console.log('starting new connection to mongo')
     client = new MongoClient(MONGO_STRING)
     await client.connect()
-    console.log('Connected to MongoDB')
     return client
 }
 
