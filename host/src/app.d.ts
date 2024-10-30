@@ -27,8 +27,7 @@ declare global {
                 promptsSubmitted: number;
             };
             accountCreatedOn: Date;
-            accountDataComplete: boolean;
-            emailChangable: boolean;
+            accountType: 'external' | 'internal';
             verified: boolean;
         }
         interface BulletinBoardEntries {

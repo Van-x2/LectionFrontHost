@@ -36,7 +36,7 @@
             </div>
 
             <h1 class="text-[23px] font-medium font-poppins translate-y-[1px]">
-                First Name
+                Last Name
             </h1>
             <p class="text-[16px] font-poppins font-medium text-accent">
                 Edit your preference then click save to update.
