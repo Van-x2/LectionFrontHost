@@ -36,7 +36,7 @@ export const load: LayoutServerLoad = async (event) => {
     //check if the user has an account type session
     if (session?.user) {
         //create a MongoDB client to connect with
-        const client = getClient()
+        const client = await getClient()
 
         console.log(`Layout ran with [${session.user.email}]`)
 
@@ -68,11 +68,13 @@ export const load: LayoutServerLoad = async (event) => {
           if (userMatch === 0) {
             //Formats user's name via Oauth info
             const formattedName = session.user.name.split(' ')[0].replace(/\s/g, '').toLowerCase()
+            console.log(session.user.name)
+            console.log(formattedName)
 
             // Define the OAuth session data to be sent to MongoDB
             const OauthUser = {
               email :session.user.email,
-              name: formattedName,
+              firstname: formattedName,
               lastname: '',
               image: session.user.image,
               lobbyMinutesUsed: 0,
@@ -83,8 +85,7 @@ export const load: LayoutServerLoad = async (event) => {
                 promptsSubmitted: 0,
               },
               accountCreatedOn: new Date(),
-              accountDataComplete: true,
-              emailChangable: false,
+              accountType: 'external',
               verified: true,
             };
 

@@ -58,7 +58,6 @@
                 </div>
             </div>
         </div>
-        <button on:click={()=> {signOut()}}> sign out</button>
     </div>
     <div class="absolute w-full h-full z-20">
     <slot />

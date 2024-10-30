@@ -106,8 +106,7 @@ export const { handle } = SvelteKitAuth({
                 promptsSubmitted: 0,
               },
               accountCreatedOn: new Date(),
-              accountDataComplete: false,
-              emailChangable: true,
+              accountType: 'internal',
               verified: true
             }
 
