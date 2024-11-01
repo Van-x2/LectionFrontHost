@@ -46,7 +46,7 @@ export const { handle } = SvelteKitAuth({
         let user: any = null
 
         //MongoDB stuff setup
-        const client = getClient()
+        const client:any = getClient()
         const users = client.db('Users')
         const hosts = users.collection('hosts')
         
