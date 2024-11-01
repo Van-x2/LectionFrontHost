@@ -49,7 +49,7 @@
 
     async function handleSubmit() {
 
-        const pwCheck = (password.length > 1)
+        const pwCheck = (password.length > 0)
         const emailCheck = validateEmail(email)
 
        if(pwCheck == false) {

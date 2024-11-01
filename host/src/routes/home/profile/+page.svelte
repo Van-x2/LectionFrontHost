@@ -7,11 +7,13 @@
     import Firstname from '../../../components/ProfilePopups/firstname.svelte';
     import Lastname from '../../../components/ProfilePopups/lastname.svelte';
     import Photo from '../../../components/ProfilePopups/photo.svelte';
+    import Migrate from '../../../components/ProfilePopups/migrate.svelte';
+    import Password from '../../../components/ProfilePopups/password.svelte';
 
 
 
     let backgroundSpacer: Element
-    let currentPage: string = 'account'
+    let currentPage: string = 'general'
     let currentOptionsMenu: string = 'none'
     let parentPage: any
 
@@ -51,7 +53,7 @@
     
 </script>
 
-<div id="parentPage" bind:this={parentPage} class="w-full h-full absolute z-10  overflow-hidden font-poppins flex flex-col bg-white text-darkgray">
+<div id="parentPage" bind:this={parentPage} class="w-full h-full absolute z-10  overflow-hidden font-poppins flex flex-col bg-white text-darkgray duration-50">
 
 <div id="settingsnavbar">
     <div class="w-full h-[107px]">
@@ -232,7 +234,7 @@
                     </div>
 
                     <div class="w-[9%] h-full flex items-center justify-end">
-                        <button class=" h-[40px] bg-white rounded-[10px] border-[2px] border-secondary active:scale-90 transition-all duration-100 px-2">
+                        <button on:click={() => {changeOptionsMenu('migrate')}} class=" h-[40px] bg-white rounded-[10px] border-[2px] border-secondary active:scale-90 transition-all duration-100 px-2">
                             <p class="text-[15px] font-medium translate-y-[1px] text-nowrap">Migrate Account</p>
                         </button>
                     </div>
@@ -273,7 +275,7 @@
                             <p class="text-[15px] font-medium translate-y-[1px]">Edit</p>
                         </button>
                         
-                        <div class="peer-disabled:peer-hover:opacity-100 opacity-0 p-3 absolute -translate-x-20 text-nowrap text-darkgray font-medium text-[15px] text-center rounded-[10px] bg-gray1">
+                        <div class="peer-disabled:peer-hover:opacity-100 opacity-0 p-3 absolute -translate-x-20 text-nowrap text-darkgray font-medium text-[15px] text-center rounded-[10px] bg-gray1 duration-100">
                             Please migrate your account to change email
                         </div>
 
@@ -301,12 +303,12 @@
                     </div>
                     <div class="w-[19%] h-full px-2 relative">
                         {#if ($page.data.session?.user?.accountType) === 'internal'}
-                            <button class="peer disabled:opacity-35 disabled:cursor-not-allowed w-full h-full bg-secondary bg-opacity-10 border-secondary border-[2px] rounded-[15px] enabled:active:bg-opacity-25 duration-100 enabled:active:scale-[98%]">
-                                Reset Password
+                            <button on:click={() => {changeOptionsMenu('password')}} class="peer disabled:opacity-35 disabled:cursor-not-allowed w-full h-full bg-secondary bg-opacity-10 border-secondary border-[2px] rounded-[15px] enabled:active:bg-opacity-25 duration-100 enabled:active:scale-[98%]">
+                                Change Password
                             </button>
                             {:else}
                             <button disabled class=" peer disabled:opacity-35 disabled:cursor-not-allowed w-full h-full bg-secondary bg-opacity-10 border-secondary border-[2px] rounded-[15px] enabled:active:bg-opacity-25 duration-100 enabled:active:scale-[98%]">
-                                Reset Password
+                                Change Password
                             </button>
                             <div class="w-full h-full peer-disabled:peer-hover:opacity-100 opacity-0 absolute flex justify-center items-center duration-100">
                                 <div class="p-3 text-darkgray font-medium text-[15px] text-center text-nowrap rounded-[10px] bg-gray1 translate-y-3">
@@ -381,6 +383,14 @@
 
 {#if currentOptionsMenu === 'photo'}
 <Photo on:closePopup={closeOptionsMenu}/>
+{/if}
+
+{#if currentOptionsMenu === 'migrate'}
+<Migrate on:closePopup={closeOptionsMenu}/>
+{/if}
+
+{#if currentOptionsMenu === 'password'}
+<Password on:closePopup={closeOptionsMenu}/>
 {/if}
 
 
