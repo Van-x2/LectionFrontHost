@@ -17,7 +17,6 @@ export const POST: RequestHandler = async ({ request }) => {
 
   const db = client.db('Users')
   const MongoCollection = db.collection('hosts')
-  console.log(body)
 
   if(body.prop === 'password') {
 
