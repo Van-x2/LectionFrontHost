@@ -66,8 +66,6 @@ export const load: LayoutServerLoad = async (event) => {
           if (userMatch === 0) {
             //Formats user's name via Oauth info
             const formattedName = session.user.name.split(' ')[0].replace(/\s/g, '').toLowerCase()
-            console.log(session.user.name)
-            console.log(formattedName)
 
             // Define the OAuth session data to be sent to MongoDB
             const OauthUser = {

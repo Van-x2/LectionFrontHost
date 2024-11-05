@@ -17,4 +17,4 @@ if (import.meta.hot) {
   }
 
 export { handle } from "./auth"
-console.log('Hooks.server Ran')
+console.log('Sveltekit Server starting up')

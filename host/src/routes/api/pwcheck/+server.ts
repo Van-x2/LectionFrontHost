@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const body = await request.json()
 
   // Connects to Mongodb
-  const client: any = getClient()
+  const client: any = await getClient()
 
   const db = client.db('Users')
   const MongoCollection = db.collection('hosts')
