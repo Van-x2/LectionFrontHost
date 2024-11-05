@@ -11,7 +11,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const body = await request.json();
 
   // Connects to Mongodb
-  const client: any = getClient()
+  const client: any = await getClient()
 
   const db = client.db('OtherData');
   const MongoCollection = db.collection('TempVerificationCodes');
