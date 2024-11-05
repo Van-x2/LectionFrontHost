@@ -9,6 +9,8 @@
     import Photo from '../../../components/ProfilePopups/photo.svelte';
     import Migrate from '../../../components/ProfilePopups/migrate.svelte';
     import Password from '../../../components/ProfilePopups/password.svelte';
+    import Email from '../../../components/ProfilePopups/email.svelte';
+    import Delete from '../../../components/ProfilePopups/delete.svelte';
 
 
 
@@ -284,7 +286,7 @@
                     {/if}
                     {#if ($page.data.session?.user?.accountType) === 'internal'}
                     <div class="w-[9%] h-full flex items-center justify-end">
-                        <button class=" w-[55px] h-[40px] bg-white rounded-[10px] border-[2px] border-secondary active:scale-90 transition-all duration-100">
+                        <button on:click={() => {changeOptionsMenu('email')}} class=" w-[55px] h-[40px] bg-white rounded-[10px] border-[2px] border-secondary active:scale-90 transition-all duration-100">
                             <p class="text-[15px] font-medium translate-y-[1px]">Edit</p>
                         </button>
                     </div>
@@ -297,7 +299,7 @@
                 <div class="w-full h-[80px] flex relative p-3 mt-3 justify-start font-medium text-darkgray">
 
                     <div class="w-[19%] h-full px-2">
-                        <button class="w-full h-full bg-darkred bg-opacity-5 border-darkred border-[2px] rounded-[15px] active:bg-opacity-10 duration-100 active:scale-[98%]">
+                        <button on:click={() => {changeOptionsMenu('delete')}} class="w-full h-full bg-darkred bg-opacity-5 border-darkred border-[2px] rounded-[15px] active:bg-opacity-10 duration-100 active:scale-[98%]">
                             Delete Account
                         </button>
                     </div>
@@ -393,5 +395,12 @@
 <Password on:closePopup={closeOptionsMenu}/>
 {/if}
 
+{#if currentOptionsMenu === 'email'}
+<Email on:closePopup={closeOptionsMenu}/>
+{/if}
+
+{#if currentOptionsMenu === 'delete'}
+<Delete on:closePopup={closeOptionsMenu}/>
+{/if}
 
 

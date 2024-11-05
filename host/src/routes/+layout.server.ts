@@ -38,8 +38,6 @@ export const load: LayoutServerLoad = async (event) => {
         //create a MongoDB client to connect with
         const client = await getClient()
 
-        console.log(`Layout ran with [${session.user.email}]`)
-
         //defines collection & db in Mongo
         const Users = client.db('Users')
         const hosts = Users.collection('hosts')
@@ -98,7 +96,6 @@ export const load: LayoutServerLoad = async (event) => {
         const MongoUser = await hosts.findOne({
             email: session.user.email
           })
-        console.log('Data Pulled from mongo')
 
         //converts the MongoDB _id to a string
         MongoUser._id = MongoUser._id.toString()

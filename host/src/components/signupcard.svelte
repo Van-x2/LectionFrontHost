@@ -102,8 +102,8 @@
 
         if (responseBody.match == true) {
         isDuplicateEmail = true
-       }
-       else {
+        }
+        else {
                 //switch the signup page to verification page
         isVerifying = true
 
@@ -111,13 +111,13 @@
         const response = await fetch('/api/verify-email',
             {
             method: 'POST',
-            body: JSON.stringify({ email: email }),
+            body: JSON.stringify({ email: email, type: 'add' }),
             headers: {
                 'Content-Type': 'application/json'
             }
             }
         )
-       }
+        }
 
 
 

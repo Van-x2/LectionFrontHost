@@ -12,7 +12,7 @@
         const response = await fetch('/api/updateinfo',
             {
             method: 'POST',
-            body: JSON.stringify({ prop: 'password', value: password.toLowerCase(), id: $page.data.session?.user?._id, migrating: true  }),
+            body: JSON.stringify({ prop: 'password', value: password, id: $page.data.session?.user?._id, migrating: true  }),
             headers: {
                 'Content-Type': 'application/json'
             }
