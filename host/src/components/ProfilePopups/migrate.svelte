@@ -12,7 +12,7 @@
         const response = await fetch('/api/updateinfo',
             {
             method: 'POST',
-            body: JSON.stringify({ prop: 'password', value: password.toLowerCase(), id: $page.data.session?.user?._id, migrating: true  }),
+            body: JSON.stringify({ prop: 'password', value: password, id: $page.data.session?.user?._id, migrating: true  }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -24,7 +24,7 @@
         
     }
     function checkPasswords() {
-        console.log('validating passwords')
+
 
         if(password.length < 1) {
             warning.textContent = 'Password field is empty'
@@ -36,7 +36,6 @@
         }
         else {
             if(password === passwordCheck) {
-            console.log('proceeding')
             submitSetting()
             }
             else {
@@ -72,8 +71,8 @@
                     Migrate your account
                 </h1>
                 <p class="text-[16px] w-[90%] font-poppins font-medium text-accent mt-2">
-                    Account migration is required to account settings.
-                    After migration, you sign in via email/password and not through connections like Google.
+                    Account migration is required to change account settings.
+                    After migration, you sign-in via email/password and not through connections like Google.
                     <br>
                 </p>
             </div>

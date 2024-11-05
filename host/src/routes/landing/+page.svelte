@@ -23,7 +23,7 @@ onMount(() => {
                 <div class="w-full h-[100px]">
                 </div>
                 <div class="w-full h-[200px]">
-                    <p class=" p-2 text-center font-normal text-[43px] text-primary -lg:text-[30px] -md:text-[25px]">
+                    <p class=" p-2 text-center font-normal text-[43px] text-primary -lg:text-[35px] -md:text-[25px] -sm:text-[20px]">
                         Empower your teaching with real-time insights into student learning.
                     </p>
                 </div>

@@ -1,9 +1,8 @@
 <script lang="ts">
     import { page } from '$app/stores'
     import { createEventDispatcher } from 'svelte';
-    let firstName = ''
-    let password = ''
-    let passwordCheck = ''
+    let password: any = ''
+    let passwordCheck: any = ''
     let warning: any
 
     const dispatch = createEventDispatcher()
@@ -12,7 +11,7 @@
         const response = await fetch('/api/updateinfo',
             {
             method: 'POST',
-            body: JSON.stringify({ prop: 'password', value: password.toLowerCase(), id: $page.data.session?.user?._id, migrating: false  }),
+            body: JSON.stringify({ prop: 'password', value: password, id: $page.data.session?.user?._id, migrating: false  }),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -23,8 +22,7 @@
         setTimeout(() => {location.reload()}, 200)
         
     }
-    function checkPasswords() {
-        console.log('validating passwords')
+    async function checkPasswords() {
 
         if(password.length < 1) {
             warning.textContent = 'Password field is empty'
@@ -35,14 +33,29 @@
             },2000)
         }
         else {
-            if(password === passwordCheck) {
-            console.log('proceeding')
+            const response = await fetch('/api/pwcheck',
+            {
+            method: 'POST',
+            body: JSON.stringify({ password: passwordCheck, id: $page.data.session?.user?._id }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+            }
+        )
+        const responseBody = await response.json()
+        console.log(responseBody.pwMatch)
+
+        if(responseBody.pwMatch) {
             submitSetting()
-            }
-            else {
+        } else {
+            warning.textContent = 'Last password is not correct'
             warning.classList.remove('opacity-0')
-            setTimeout(() => {warning.classList.add('opacity-0')},2000)
-            }
+            setTimeout(() => {
+                warning.classList.add('opacity-0')
+                setTimeout(() => {warning.textContent = 'Passwords do not match'},100)
+            },2000)
+        }
+
         }
     }
 </script>
@@ -72,7 +85,7 @@
                     Change your Password
                 </h1>
                 <p class="text-[16px] w-[90%] font-poppins font-medium text-accent mt-2">
-                    To change your password, please use your last password, then type in your new desired password
+                    To change your password, please use your last password, then type in your new desired password.
                 </p>
             </div>
 
@@ -84,7 +97,7 @@
 
                 <div class="w-full py-2 px-2 mb-4">
                     <div class="w-full h-full">
-                        <input bind:value={password} type="password" class="mb-1 w-[60%] h-[43px] bg-gray1 pl-4 rounded-[10px] text-[18px] appearance-none border-non focus:outline-none" placeholder="Enter last password here"/>
+                        <input bind:value={passwordCheck} type="password" class="mb-1 w-[60%] h-[43px] bg-gray1 pl-4 rounded-[10px] text-[18px] appearance-none border-non focus:outline-none" placeholder="Enter last password here"/>
                     </div>
                 </div>
 
@@ -94,7 +107,7 @@
 
                 <div class="w-full py-2 px-2">
                     <div class="w-full h-full">
-                        <input bind:value={passwordCheck} type="password" class="mb-1 w-[60%] h-[43px] bg-gray1 pl-4 rounded-[10px] text-[18px] appearance-none border-non focus:outline-none" placeholder="Enter new password here"/>
+                        <input bind:value={password} type="password" class="mb-1 w-[60%] h-[43px] bg-gray1 pl-4 rounded-[10px] text-[18px] appearance-none border-non focus:outline-none" placeholder="Enter new password here"/>
                     </div>
                 </div>
             </div>

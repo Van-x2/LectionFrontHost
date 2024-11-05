@@ -18,31 +18,18 @@ export const POST: RequestHandler = async ({ request }) => {
   const db = client.db('Users')
   const MongoCollection = db.collection('hosts')
 
-  if(body.prop === 'password') {
 
-    const passwordInput = body.value
-    const salt = await bcrypt.genSalt(12)
-    const hashedPassword =  await bcrypt.hash(passwordInput, salt)
+// encrypts password
+  const passwordInput = body.password
+  const salt = await bcrypt.genSalt(12)
+  const hashedPassword =  await bcrypt.hash(passwordInput, salt)
 
-    if(body.migrating === true){
-      await MongoCollection.updateOne(
-        { _id: new ObjectId(body.id) },
-        { $set: { ['accountType']: 'internal' } }
-      )
-    }
+  const response = await MongoCollection.findOne(
+    { _id: new ObjectId(body.id) }
+  )
+  //console.log(response.password)
+  const pwMatch = await bcrypt.compare(passwordInput, response.password);
 
-    await MongoCollection.updateOne(
-      { _id: new ObjectId(body.id) },
-      { $set: { [body.prop]: hashedPassword } }
-    )
 
-  }
-  else{
-    await MongoCollection.updateOne(
-      { _id: new ObjectId(body.id) },
-      { $set: { [body.prop]: body.value } }
-    )
-  }
-
-  return json(body);
+  return json({pwMatch: pwMatch});
 };
