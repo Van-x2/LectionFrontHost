@@ -19,7 +19,7 @@
             <div class="w-full h-full p-[5px] px-[10px]">
               <div class="w-full h-full flex justify-end text-[14px]">
                 <div class="w-[110px] h-full  mr-[10px] flex justify-center items-center">
-                  <a href="/pricing">
+                  <a href="/landing/pricing">
                     <p class=" translate-y-[2px]">
                       Pricing
                     </p>

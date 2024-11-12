@@ -3,7 +3,7 @@
   import { signIn } from "@auth/sveltekit/client";
 
 </script>
-<div class="w-screen h-screen bg-white relative font-poppins font-medium overflow-x-hidden">
+<div class="w-screen h-screen bg-white relative font-poppins font-medium overflow-x-hidden flex flex-col">
   <div class="w-full h-[150px] flex items-center">
     <div class="w-full h-14">
       <div class="w-full h-full flex pl-[5%] pr-[7%] justify-between">
@@ -18,7 +18,7 @@
           <div class="w-full h-full p-[5px] px-[10px]">
             <div class="w-full h-full flex justify-end text-[14px]">
               <div class="w-[110px] h-full  mr-[10px] flex justify-center items-center">
-                <a href="/pricing">
+                <a href="/landing/pricing">
                   <p class=" translate-y-[2px]">
                     Pricing
                   </p>
@@ -46,5 +46,7 @@
       </div>
     </div>
   </div>
-  <slot />
+  <div class="w-full flex-grow">
+    <slot />
+  </div>
 </div>
