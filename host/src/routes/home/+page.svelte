@@ -1,82 +1,103 @@
 <script lang="ts">
     import { page } from "$app/stores"
     let BulletinItems: any = $page.data.session?.BulletinBoardEntries
+
 </script>
-<div class="w-full h-full overflow-hidden flex-col">
-    <div class="w-full h-[120px]">
+<div class="w-full h-full flex-col flex">
+    <div class="w-full h-[120px] ">
+        
     </div>
-    <div class="w-full h-[88%] flex-grow flex-col">
-        <div class="w-full h-[50%] lg:h-[35%] flex justify-center items-center">
-            <div class="w-full h-full px-6 pb-[2px] flex-col">
-                <div class="w-full h-[20%] flex items-center pl-8 text-[35px] text-accent font-normal italic ">
-                    <span class="text-secondary font-black -translate-y-[3px] -translate-x-2 text-[40px]">//</span>
-                    <h1>  Welcome back {(($page.data.session?.user?.firstname)?.split(' ')[0] || '').replace(/\s/g, '').replace(/^(.)(.*)$/, (_, first, rest) => first.toUpperCase() + rest.toLowerCase())}!</h1>
+    <div class="w-full flex-grow flex">
+
+        <div class="h-full w-[35%] px-6 pb-6">
+            <div class="w-full h-full flex flex-col">
+
+                <div class="w-full h-[120px] mb-8 rounded-[20px] shadow-[inset_0_0_10px_rgba(0,0,0,0.2)] shadow-accent flex justify-center items-center">
+                    <p class=" font-normal italic text-accent text-[35px]">Welcome back {(($page.data.session?.user?.firstname)?.split(' ')[0] || '').replace(/\s/g, '').replace(/^(.)(.*)$/, (_, first, rest) => first.toUpperCase() + rest.toLowerCase())}!</p>
                 </div>
-                <div class="w-full h-[80%] flex">
 
-                    <div class="h-full w-1/3 p-[18px]">
-                        <div class="w-full h-full bg-gray1 rounded-[20px] border-[2px] border-secondary">
-                            <div class="h-1/2 w-full p-[17px] font-normal text-[30px] text-primary">
-                                <h1>Lectionaries Started</h1>
-                            </div>
-                            <div class="h-1/2 w-full pb-[px] pr-[25px] flex items-end justify-end text-[45px] text-secondary font-poppins font-medium">
-                                <p>
-                                {$page.data.session?.user?.stats.lectionariesStarted}
-                                </p>
+                <div class="w-full flex-grow bg-gray1 rounded-[20px] flex flex-col px-5 pb-5">
+                    <div class="w-full h-[80px] flex justify-center items-center">
+                        <p class=" text-[25px] font-poppins font-medium text-darkgray">Bulletin Board</p>
+                    </div>
+                    <div class="w-full flex-grow">
+                        <div class="relative w-full h-full">
+                            <div class="absolute inset-0">
+                                <div class="w-full h-full overflow-y-scroll hide-scrollbar rounded-[20px]"
+                                        style="-ms-overflow-style: none; scrollbar-width: none; ::-webkit-scrollbar"
+                                >
+                                    {#each BulletinItems as item}
+                                        <div class="w-full h-fit bg-white rounded-[20px] p-3 mb-4">
+                                            <h1 class="text-darkgray font-poppins font-semibold my-1">
+                                                {item.Date}
+                                            </h1>
+                                            <p class="text-accent font-poppins font-medium">
+                                                {item.TextContent}
+                                            </p>
+                                        </div>
+                                    {/each}
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="h-full w-1/3 p-[18px]">
-                        <div class="w-full h-full bg-gray1 rounded-[20px] border-[2px] border-secondary">
-                            <div class="h-1/2 w-full p-[17px] font-normal text-[30px] text-primary">
-                                <h1>Students Taught</h1>
-                            </div>
-                            <div class="h-1/2 w-full pb-[px] pr-[25px] flex items-end justify-end text-[45px] text-secondary font-poppins font-medium">
-                                <p>
-                                    {$page.data.session?.user?.stats.studentsTaught}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="h-full w-1/3 p-[18px]">
-                        <div class="w-full h-full bg-gray1 rounded-[20px] border-[2px] border-secondary">
-                            <div class="h-1/2 w-full p-[17px] font-normal text-[30px] text-primary">
-                                <h1>Prompts Submitted</h1>
-                            </div>
-                            <div class="h-1/2 w-full pb-[px] pr-[25px] flex items-end justify-end text-[45px] text-secondary font-poppins font-medium">
-                                <p>
-                                    {$page.data.session?.user?.stats.promptsSubmitted}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+                
+
+
             </div>
         </div>
-        <div class="w-full h-[50%] lg:h-[65%] p-4 px-8 pb-[35px]">
-            <div class="w-full h-full bg-gray1 rounded-[20px] border-[2px] border-secondary max-h-[100%]">
-                <div class=" w-full -md:h-[-30%] h-[20%] text-[30px] flex items-center p-8 font-normal font-me text-primary">
-                    <h1>Bulletin Board</h1>
-                </div>
-                <div class="w-full h-[1px] mb-[1%] -translate-y-2">
-                    <div class=" ml-8 w-[90%] h-[1px] bg-primary">
 
+        <div class="h-full w-[65%] pb-6 pr-6 flex flex-col">
+            <div class="w-full flex-grow bg-gray1 rounded-[20px]">
+
+            </div>
+            <div class="w-full h-[42%] mt-6 flex">
+                <div class="h-full w-[500px] bg-gray1 rounded-[20px] mr-6"></div>
+                <div class="h-full flex-grow">
+                    <div class="w-full h-1/3  pb-2">
+                        <div class="w-full h-full rounded-[20px] bg-secondary flex justify-between px-5 py-2 items-center">
+
+                            <p class=" text-white font-normal font-semibold text-[30px] w-4">
+                                Lectionaries Started
+                            </p>
+
+                            <div class="h-full w-[50%] flex justify-end items-end">
+                                <p class=" text-white font-normal font-semibold text-[35px]">
+                                    {$page.data.session?.user?.stats.lectionariesStarted.toLocaleString()}
+                                </p>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
-                <div class=" w-full h-[74%]">
-                    <div class=" text-[13px] w-full h-full pl-8 text-darkgray font-poppins font-medium overflow-auto leading-[15px] max-h-[95%] scroll overflow-y-scroll">
-                        <ol>    
-                            {#if (BulletinItems.length >= 1)}
-                                {#each BulletinItems as item, i}
-                                <li> - {item.TextContent}</li>
-                                <br>
-                                {/each}        
-                            {/if}
+                    <div class="w-full h-1/3  pt-2 pb-2">
+                        <div class="w-full h-full rounded-[20px] bg-accent flex justify-between px-5 py-2 items-center">
 
-                          </ol> 
+                            <p class=" text-white font-normal font-semibold text-[30px] w-4">
+                                Students Taught
+                            </p>
+
+                            <div class="h-full w-[50%] flex justify-end items-end">
+                                <p class=" text-white font-normal font-semibold text-[35px]">
+                                    {$page.data.session?.user?.stats.studentsTaught.toLocaleString()}
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="w-full h-1/3 pt-2">
+                        <div class="w-full h-full rounded-[20px] bg-primary flex justify-between px-5 py-2 items-center">
+
+                            <p class=" text-white font-normal font-semibold text-[30px] w-4">
+                                Prompts Submitted
+                            </p>
+
+                            <div class="h-full w-[50%] flex justify-end items-end">
+                                <p class=" text-white font-normal font-semibold text-[35px]">
+                                    {$page.data.session?.user?.stats.promptsSubmitted.toLocaleString()}
+                                </p>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>

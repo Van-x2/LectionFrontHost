@@ -12,8 +12,7 @@ onMount(() => {
 
 </script>
 
-<div class="w-full h-full">
-    <div class="w-full h-[85%] flex justify-center">
+    <div class="w-full h-full flex justify-center">
         <div class="h-full w-[30%] flex flex-col pointer-events-none">
             <div class="w-full h-[16%]"></div>
             <img class="w-[400px] -translate-x-8" src={leftLandingPhotoAwait} alt="phones displaying Lection student app">
@@ -23,7 +22,7 @@ onMount(() => {
                 <div class="w-full h-[100px]">
                 </div>
                 <div class="w-full h-[200px]">
-                    <p class=" p-2 text-center font-normal text-[43px] text-primary -lg:text-[35px] -md:text-[25px] -sm:text-[20px]">
+                    <p class=" p-2 text-center font-normal text-[40px] text-primary -lg:text-[35px] -md:text-[25px] -sm:text-[20px]">
                         Empower your teaching with real-time insights into student learning.
                     </p>
                 </div>
@@ -59,4 +58,3 @@ onMount(() => {
         About Me Goes Here!
         <br>
     </div>
-</div>
