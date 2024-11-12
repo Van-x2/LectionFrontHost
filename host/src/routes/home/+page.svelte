@@ -1,8 +1,80 @@
 <script lang="ts">
-    import { page } from "$app/stores"
-    let BulletinItems: any = $page.data.session?.BulletinBoardEntries
+    import { page } from "$app/stores";
+    import { Chart, type ChartItem } from "chart.js";
+    import { DoughnutController } from 'chart.js';
+    import 'chart.js/auto'
+    import { onMount } from "svelte";
+  
+    let BulletinItems: any = $page.data.session?.BulletinBoardEntries;
+    let timeMeterCanvasBackground: HTMLCanvasElement;
+    let timeMeterCanvas: HTMLCanvasElement;
+    let timeMeter: ChartItem;
+    let lectionMins = 423
+    let lectionMinsMax = (10*60)
+    let lectionMinsRatio: any = ((lectionMins / lectionMinsMax) * 100).toString().slice(0, 2);
+    console.log(lectionMinsRatio)
+  
+    onMount(() => {
 
-</script>
+        new Chart(timeMeterCanvasBackground, {
+    type: "doughnut",
+    data: {
+        labels: ["Elapsed", "Remaining"],
+        datasets: [
+            {
+                data: [100],
+                backgroundColor: ["#D9D9D9"],
+                borderRadius: 10, // Adjust the radius for rounded edges
+                borderWidth: 0,
+
+
+            },
+        ]
+    },
+    options: {
+        rotation: -90, // Start from the top center
+        circumference: 180, // Display only the top half for a half-donut effect
+        cutout: "75%", // Inner cutout for donut style
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+        })
+
+        new Chart(timeMeterCanvas, {
+    type: "doughnut",
+    data: {
+        datasets: [
+            {
+                data: [lectionMinsRatio, (100 - lectionMinsRatio)], // Completed and remaining portions
+                backgroundColor: ["#1E5167", "rgba(0,0,0,0)"], // Single color with transparent remainder
+                borderRadius: 10, // Rounded edges
+                borderWidth: 0,
+            },
+        ]
+    },
+    options: {
+        rotation: -90, // Start from the top center
+        circumference: 180, // Display only the top half for a half-donut effect
+        cutout: "75%", // Inner cutout for donut style
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false // Hide the legend
+            }
+        }
+    }
+})
+
+    })
+  </script>
+
 <div class="w-full h-full flex-col flex">
     <div class="w-full h-[120px] ">
         
@@ -24,7 +96,7 @@
                         <div class="relative w-full h-full">
                             <div class="absolute inset-0">
                                 <div class="w-full h-full overflow-y-scroll hide-scrollbar rounded-[20px]"
-                                        style="-ms-overflow-style: none; scrollbar-width: none; ::-webkit-scrollbar"
+                                     style="-ms-overflow-style: none; scrollbar-width: none; ::-webkit-scrollbar"
                                 >
                                     {#each BulletinItems as item}
                                         <div class="w-full h-fit bg-white rounded-[20px] p-3 mb-4">
@@ -52,7 +124,30 @@
 
             </div>
             <div class="w-full h-[42%] mt-6 flex">
-                <div class="h-full w-[500px] bg-gray1 rounded-[20px] mr-6"></div>
+                <div class="h-full w-[500px] bg-gray1 rounded-[20px] mr-6 relative">
+
+                    <div class="w-full h-full absolute z-20 flex flex-col">
+                        <div class="w-full h-[90px] flex justify-center items-center ">
+                            <p class=" text-[25px] font-poppins font-medium text-darkgray">Lectionary Time Used</p>
+                        </div>
+                        <div class="w-full h-[90px]"></div>
+                        <div class="w-full flex-grow flex justify-center items-center">
+                            <p class="text-primary font-normal font-semibold text-[45px]">{lectionMinsRatio}%</p>
+                        </div>
+                            <p class="text-gray2 font-poppins font-medium text-center my-2 text-[20px]">
+                                <a href="/home/upgrade">
+                                    Remove Limit?
+                                </a>
+                            </p>
+                    </div>
+
+                    <div class="w-full h-full absolute p-14">
+                        <canvas bind:this={timeMeterCanvas} class=" w-full h-full absolute z-10"></canvas>
+                        <canvas bind:this={timeMeterCanvasBackground} class=" w-full h-full absolute z-0"></canvas>
+                    </div>
+
+                </div>
+
                 <div class="h-full flex-grow">
                     <div class="w-full h-1/3  pb-2">
                         <div class="w-full h-full rounded-[20px] bg-secondary flex justify-between px-5 py-2 items-center">

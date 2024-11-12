@@ -15,7 +15,7 @@
 
 <div class="h-full w-[320px] bg-yellow-400 mx-[10px]">
     <div class="w-full h-[480px] rounded-[20px] bg-white border-secondary border-[2px]">
-
+        <div></div>
     </div>
 </div>
 
