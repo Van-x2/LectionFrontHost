@@ -205,15 +205,19 @@
             <div class="w-full flex-grow bg-gray1 rounded-[20px] flex flex-col px-3 pb-3">
                 <div class="w-full h-[80px] flex items-center">
                     <h1 class=" text-[22px] font-poppins font-medium text-darkgray ml-7">Lectionary Insights</h1>
-                    <div class="w-[140px] h-[50px] bg-darkgray mx-8 rounded-full flex justify-center items-center">
-                        <p class="text-white font-medium text-[18px] -translate-y-[1px] ml-1">2 months</p>
-                        <div class=" h-[60%] aspect-square">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-full h-full fill-white ">
-                                <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-                              </svg>
-                              
+
+                    <button class="w-[140px] h-[50px] flex justify-center items-center mx-8">
+                        <div class="w-[140px] h-[50px] bg-darkgray rounded-full flex justify-center items-center absolute">
+                            <p class="text-white font-medium font-poppins translate-y-[1px] text-[18px] ml-1">2 months</p>
+                            <div class=" h-[60%] aspect-square">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-full h-full fill-white ">
+                                    <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                  </svg>
+                                  
+                            </div>
                         </div>
-                    </div>
+                    </button>
+
                 </div>
 
                 <div class="w-full flex-grow bg-white rounded-[20px] flex">

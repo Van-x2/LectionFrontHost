@@ -34,6 +34,15 @@
     let timer: any
     let participationMeter: any
     let confidenceMeter: any
+    let groupSelectInputField: any
+    let groupSelectInputFieldOpener: any
+
+    let groupSelectInputFieldOpen: boolean = false
+
+    let groupsArray = ['group1', 'group2', 'group3', 'group4', 'group5']
+
+    let currentGroup = ''
+
 
 
     onMount(() => {
@@ -46,6 +55,7 @@
         timer = document.getElementById('timer')
         participationMeter = document.getElementById('participationMeter')
         confidenceMeter = document.getElementById('confidenceMeter')
+
 
     })
 
@@ -340,6 +350,24 @@
         }
         
     }
+
+    function toggleMenu() {
+        if (groupSelectInputFieldOpen === false) {
+            groupSelectInputFieldOpener.classList.add("rotate-90")
+        }
+        else{
+            groupSelectInputFieldOpener.classList.remove("rotate-90")
+        }
+        groupSelectInputFieldOpen = !groupSelectInputFieldOpen
+    }
+
+    function groupSelected(group: any) {
+
+        currentGroup = group
+        groupSelectInputFieldOpener.classList.remove("rotate-90")
+        groupSelectInputFieldOpen = false
+    }
+
 </script>
 
 <div id="parentPage" class="w-full h-full flex  overflow-hidden">
@@ -349,6 +377,7 @@
 
 
         <div id="createLobbyMenu" class="w-full h-full bg-gray1 absolute z-0">
+
             <div class="w-full h-[30%] flex-col flex justify-end p-4 px-6 pointer-events-none select-none">
             <div class="w-full flex justify-center items-center">
                     <h1 class=" text-[22px] font-normal font-semibold text-darkgray">
@@ -356,19 +385,64 @@
                     </h1>
             </div>
             </div>
+
             <div class="w-full h-[70%] flex flex-col items-center justify-between p-4 px-6">
+
                 <div class="w-full h-fit">
-                    <div class="w-full h-12 rounded-[15px] mt-4">
-                        <button class="w-full h-full rounded-[15px] bg-gray1 transition duration-100 border-2 border-primary">
-                            <input bind:value={groupInputField} class="w-full h-full rounded-[15px] text-center bg-gray2 focus:bg-gray1 border-none outline-none transition duration-100 p-0 m-0 text-primary font-poppins" spellcheck="false" placeholder="Enter group name" type="text"/>
-                        </button>
+
+                    <div class="w-full h-fit rounded-[15px] mt-4">
+
+                        <div bind:this={groupSelectInputField} class="w-full h-fit flex rounded-[15px] bg-darkgray overflow-hidden font-poppins text-[15px]">
+
+                            <div 
+                            class="w-[85%] transition-all duration-200 overflow-hidden" 
+                            style="height: {groupSelectInputFieldOpen ? `${((groupsArray.length + 1) * 50)}px` : '50px'};">
+
+                                <div class="{groupSelectInputFieldOpen ? 'block' : 'hidden'}">
+                                    {#each groupsArray as node}
+                                    <button on:click={() => {groupSelected(node)}} class="w-full h-[50px] text-white pl-4 py-2 flex items-center">
+                                        <p>{node}</p>
+                                    </button>
+                                    
+                                    {/each}
+
+                                    <button on:click={() => {groupSelected('new')}} class="w-full h-[50px] text-white pl-4 py-2 flex items-center">
+                                        <p>Create New Group</p>
+                                    </button>
+                                </div>
+
+                                <div class="{groupSelectInputFieldOpen ? 'hidden' : 'block'}">
+                                    {#if currentGroup === 'new'}
+                                    <input bind:value={groupInputField} class=" bg-darkgray w-full h-[50px] pl-4 py-2 flex items-center border-none outline-none transition duration-100 p-0 m-0 text-white" spellcheck="false" placeholder="Enter Group Name" type="text"/>
+                                    {:else}
+                                        <div class="w-full h-[50px] text-white pl-4 py-2 flex items-center">{#if currentGroup === ''} Select a Group {:else} {currentGroup} {/if}</div>
+                                    {/if}
+                                </div>
+
+                            </div>
+
+                            <div class="h-[50px] w-[15%] flex justify-center items-center">
+                                <div class="h-[60%] aspect-square flex justify-center items-center relative">
+                                    <button bind:this={groupSelectInputFieldOpener} on:click={toggleMenu} class=" transition-all duration-200 ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-full h-full stroke-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                        </svg>   
+                                    </button>                                   
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
+
                     <div class="w-full h-[60px] mt-8 text-[18px]">
                         <button on:click={createLobby} class="w-full h-full bg-darkgray rounded-[15px] font-poppins font-medium text-gray1 active:bg-[#252525] active:translate-y-[1px] transition duration-100">
                             Create
                         </button>
                     </div>
+
                 </div>
+
                 <div class="w-full h-fit">
                     <div class="w-full h-fit text-darkgray">
                         <p class=" w-full text-wrap text-center text-[20px] font-poppins py-2 px-4">
@@ -384,7 +458,9 @@
                         </p>
                     </div>
                 </div>
+
             </div>
+
         </div>
 
         <div id="preLobbyMenu" class="w-full h-full bg-gray1 absolute -z-10 overflow-y-auto">
