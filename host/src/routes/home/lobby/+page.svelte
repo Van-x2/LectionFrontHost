@@ -38,7 +38,14 @@
 
     let groupSelectInputFieldOpen: boolean = false
 
-    let groupsArray = $page.data.session?.user?.groups
+    let groupsArray
+
+    if($page.data.session?.user?.groups) {
+    groupsArray = $page.data.session?.user?.groups
+    }
+    else{
+    groupsArray = []
+    }
 
     let currentGroup = ''
     let currentGroupValue = ''
