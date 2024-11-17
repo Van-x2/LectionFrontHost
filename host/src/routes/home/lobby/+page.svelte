@@ -7,7 +7,6 @@
 
     //defining stuffs
 
-    let groupInputField = ''
     let promptField = ''
     let hostId = $page.data.session?.user?._id
     let joincode = ''
@@ -39,9 +38,10 @@
 
     let groupSelectInputFieldOpen: boolean = false
 
-    let groupsArray = ['group1', 'group2', 'group3', 'group4', 'group5']
+    let groupsArray = $page.data.session?.user?.groups
 
     let currentGroup = ''
+    let currentGroupValue = ''
 
 
 
@@ -66,7 +66,7 @@
       const lobby = {
         hostid: hostId,
         joincode: null,
-        group: groupInputField,
+        group: currentGroupValue,
         prompts: [],
         participants: [],
         datetime: thenDate,
@@ -364,6 +364,12 @@
     function groupSelected(group: any) {
 
         currentGroup = group
+        if(group === 'new') {
+            currentGroupValue = ''
+        }
+        else{
+            currentGroupValue = group
+        }
         groupSelectInputFieldOpener.classList.remove("rotate-90")
         groupSelectInputFieldOpen = false
     }
@@ -413,7 +419,7 @@
 
                                 <div class="{groupSelectInputFieldOpen ? 'hidden' : 'block'}">
                                     {#if currentGroup === 'new'}
-                                    <input bind:value={groupInputField} class=" bg-darkgray w-full h-[50px] pl-4 py-2 flex items-center border-none outline-none transition duration-100 p-0 m-0 text-white" spellcheck="false" placeholder="Enter Group Name" type="text"/>
+                                    <input bind:value={currentGroupValue} class=" bg-darkgray w-full h-[50px] pl-4 py-2 flex items-center border-none outline-none transition duration-100 p-0 m-0 text-white" spellcheck="false" placeholder="Enter Group Name" type="text"/>
                                     {:else}
                                         <div class="w-full h-[50px] text-white pl-4 py-2 flex items-center">{#if currentGroup === ''} Select a Group {:else} {currentGroup} {/if}</div>
                                     {/if}

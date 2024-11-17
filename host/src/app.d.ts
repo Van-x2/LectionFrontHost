@@ -29,6 +29,7 @@ declare global {
             accountCreatedOn: Date;
             accountType: 'external' | 'internal';
             verified: boolean;
+            groups: any;
         }
         interface BulletinBoardEntries {
         
