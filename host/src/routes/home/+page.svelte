@@ -8,14 +8,16 @@
     let BulletinItems: any = $page.data.session?.BulletinBoardEntries;
 
     let insightsGraph: HTMLCanvasElement
+    let insightsChart: any
 
     let timeMeterCanvasBackground: HTMLCanvasElement;
     let timeMeterCanvas: HTMLCanvasElement;
     
     let lectionMins = 423
     let lectionMinsMax = (10*60)
-    let lectionMinsRatio: any = ((lectionMins / lectionMinsMax) * 100).toString().slice(0, 2);
-    console.log(lectionMinsRatio)
+    let lectionMinsRatio: any = ((lectionMins / lectionMinsMax) * 100).toString().slice(0, 2)
+
+    let currentTimeScale: string = '1 month' 
 
   
     onMount(() => {
@@ -77,82 +79,96 @@
         })
 
         const config: any = { 
-  type: 'line', 
-  data: { 
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'], 
-    datasets: [{ 
-      label: 'Sample Data', 
-      data: [32, 76, 28, 47, 50, 90, 76], 
-      borderColor: 'rgb(30, 81, 103)',
-      tension: 0.3,
-      fill: false,
-      pointRadius: 0
-    }] 
-  }, 
-  options: { 
-    responsive: true, 
-    maintainAspectRatio: false,
-    animation: { 
-      duration: 2000,
-      easing: 'easeInOutQuart'
-    }, 
-    plugins: { 
-      legend: { 
-        display: false
-      }
-    },
-    scales: { 
-      x: { 
-        grid: { 
-          display: false
-        }, 
-        ticks: { 
-          display: false,
-          padding: 15
+            type: 'line', 
+            data: { 
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'], 
+                datasets: [{ 
+                label: 'Sample Data', 
+                data: [32, 76, 28, 47, 50, 90, 76], 
+                borderColor: 'rgb(30, 81, 103)',
+                tension: 0.3,
+                fill: false,
+                pointRadius: 0
+                }] 
+            }, 
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false,
+                animation: { 
+                duration: 1000,
+                easing: 'easeInOutQuart'
+                }, 
+                plugins: { 
+                legend: { 
+                    display: false
+                }
+                },
+                scales: { 
+                x: { 
+                    grid: { 
+                    display: false
+                    }, 
+                    ticks: { 
+                    display: false,
+                    padding: 15
+                    }
+                }, 
+                y: {
+                    beginAtZero: true, 
+                    max: 100,
+                    ticks: {
+                    stepSize: 25,
+                    padding: 15,
+                    callback: function(value :any, index: any) {
+                        return ['0%', '25%', '50%', '75%', '100%'][index];
+                    },
+                    font: {
+                        family: "'Poppins', 'sans-serif'",    // Font family
+                        size: 14,           // Font size in pixels
+                        weight: '400',     // Can be 'normal', 'bold', '500', etc.
+                        style: 'normal'     // Can be 'normal', 'italic'
+                    },
+                    color: '#D9D9D9',     // Text color
+                    align: 'center',      // Text alignment
+                    crossAlign: 'center'  // Cross-axis alignment
+                    }, 
+                    grid: { 
+                    color: 'rgba(239, 239, 239)',
+                    lineWidth: 1,
+                    drawBorder: false,
+                    drawTicks: false,
+                    drawOnChartArea: true,
+                    setLineDash: [5, 5]
+                    }, 
+                    border: { 
+                    display: false
+                    }
+                } 
+                } 
+            } 
         }
-      }, 
-      y: {
-        beginAtZero: true, 
-        max: 100,
-        ticks: {
-          stepSize: 25,
-          padding: 15,
-          callback: function(value :any, index: any) {
-            return ['0%', '25%', '50%', '75%', '100%'][index];
-          },
-          font: {
-            family: "'Poppins', 'sans-serif'",    // Font family
-            size: 14,           // Font size in pixels
-            weight: '400',     // Can be 'normal', 'bold', '500', etc.
-            style: 'normal'     // Can be 'normal', 'italic'
-          },
-          color: '#D9D9D9',     // Text color
-          align: 'center',      // Text alignment
-          crossAlign: 'center'  // Cross-axis alignment
-        }, 
-        grid: { 
-          color: 'rgba(239, 239, 239)',
-          lineWidth: 1,
-          drawBorder: false,
-          drawTicks: false,
-          drawOnChartArea: true,
-          setLineDash: [5, 5]
-        }, 
-        border: { 
-          display: false
-        }
-      } 
-    } 
-  } 
-};
 
-
-
-
-        new Chart(insightsGraph, config)
+       insightsChart = new Chart(insightsGraph, config)
 
 
     })
+
+    $: if (insightsChart) {
+        insightsChart.data = {
+            // Update your data here based on currentTimeScale
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'Sample Data',
+                data: [32, 76, 28, 47, 50, 90, 76],
+                borderColor: 'rgb(30, 81, 103)',
+                tension: 0.3,
+                fill: false,
+                pointRadius: 0
+            }]
+        };
+        insightsChart.update();
+        console.log(currentTimeScale);
+    }
 
   </script>
 
@@ -206,17 +222,18 @@
                 <div class="w-full h-[80px] flex items-center">
                     <h1 class=" text-[22px] font-poppins font-medium text-darkgray ml-7">Lectionary Insights</h1>
 
-                    <button class="w-[140px] h-[50px] flex justify-center items-center mx-8">
-                        <div class="w-[140px] h-[50px] bg-darkgray rounded-full flex justify-center items-center absolute">
-                            <p class="text-white font-medium font-poppins translate-y-[1px] text-[18px] ml-1">2 months</p>
-                            <div class=" h-[60%] aspect-square">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-full h-full fill-white ">
-                                    <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-                                  </svg>
-                                  
-                            </div>
-                        </div>
-                    </button>
+                    <div class="w-fit px-4 h-[53px] flex items-center mx-8 bg-white shadow-sm rounded-full">
+                        {#each ['1 day', '2 weeks', '1 month', '6 months', '1 year'] as timeScale}
+                            <button class:pointer-events-none={currentTimeScale === timeScale} on:click={() => { currentTimeScale = timeScale }}>
+                                <p 
+                                    class="text-darkgray font-poppins translate-y-[1px] font-medium text-[16px] rounded-full transition-all duration-150 ease-in-out px-4 py-[5px]"
+                                    class:bg-neutral-100={currentTimeScale === timeScale}
+                                >
+                                    {timeScale}
+                                </p>
+                            </button>
+                        {/each}
+                    </div>
 
                 </div>
 
