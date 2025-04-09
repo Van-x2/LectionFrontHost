@@ -347,17 +347,17 @@
                 <div class="w-full h-[80px] flex relative">
 
                     <div class="w-[20%] h-full flex items-center pl-3">
-                        <p class=" font-medium text-[19px]">First Name</p>
+                        <p class=" font-medium text-[19px]">Subscription Level</p>
                     </div>
 
-                    <div class="w-[71%] h-full pl-24 flex items-center">
-                        <p class=" font-medium text-[19px]">{$page.data.session?.user?.firstname}</p>
+                    <div class="w-[50%] h-full pl-24 flex items-center">
+                        <p class=" font-medium text-[19px]">{$page.data.session?.user?.membershipLevel}</p>
                     </div>
 
-                    <div class="w-[9%] h-full flex items-center justify-center">
-                        <button class="w-[55px] h-[40px] bg-white rounded-[10px] border-[2px] border-secondary active:scale-90 transition-all duration-100">
-                            <p class="text-[15px] font-medium translate-y-[1px]">Edit</p>
-                        </button>
+                    <div class="w-[30%] h-full flex items-center justify-center">
+                        <a href="google.com" class=" h-[40px] translate-y-[13px]">
+                            <p class="text-[15px] font-medium underline">Edit Billing & Subscription Settings Here</p>
+                        </a>
                     </div>
 
                 </div>
