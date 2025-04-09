@@ -2,6 +2,8 @@ import { json } from '@sveltejs/kit'
 import { getClient } from "$lib/mongoconnect"
 import Stripe from 'stripe'
 import { STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET} from "$env/static/private"
+import { ObjectId } from 'mongodb'
+
 // Initialize Stripe with your secret key
 const stripe = new Stripe(STRIPE_SECRET_KEY)
 const webhookSecret = STRIPE_WEBHOOK_SECRET
@@ -18,10 +20,15 @@ export async function POST({ request }) {
       case 'checkout.session.completed':
         console.log('New subscription created:', event.data.object.subscription)
         const subscriptionId = event.data.object.subscription
+        const userId = event.data.object.client_reference_id
+        console.log(userId)
         
         try {
           // Retrieve the subscription details
           const subscription = await stripe.subscriptions.retrieve(subscriptionId)
+          
+          // Variable to store membership level from metadata
+          let membershipLevel = null
           
           // Get product metadata from each subscription item
           for (const item of subscription.items.data) {
@@ -34,12 +41,30 @@ export async function POST({ request }) {
             // Access product metadata directly from expanded product
             const productMetadata = price.product.metadata
             console.log('Product Metadata:', productMetadata)
+            
+            // Assuming membership level is stored in the metadata
+            if (productMetadata.membershipLevel) {
+              membershipLevel = productMetadata.membershipLevel
+            }
           }
           
-          const client = await getClient()
-          const Users = client.db('Users')
-          const hosts = Users.collection('hosts')
-          // Note: You might want to add code here to update the host with the metadata
+          // Connect to MongoDB and update the user document
+          if (membershipLevel && userId) {
+            const client = await getClient()
+            const Users = client.db('Users')
+            const hosts = Users.collection('hosts')
+            
+            // Convert the string userId to MongoDB ObjectId
+            const objectId = new ObjectId(userId)
+            
+            // Update the user's membership level
+            const updateResult = await hosts.updateOne(
+              { _id: objectId },
+              { $set: { membershipLevel: membershipLevel } }
+            )
+            
+            console.log(`Updated user membership level: ${updateResult.modifiedCount} document(s) modified`)
+          }
           
         } catch (error) {
           console.error('Error retrieving subscription or product metadata:', error)
