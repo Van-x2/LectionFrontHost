@@ -42,9 +42,9 @@ export async function POST({ request }) {
             const productMetadata = price.product.metadata
             console.log('Product Metadata:', productMetadata)
             
-            // Assuming membership level is stored in the metadata
-            if (productMetadata.membershipLevel) {
-              membershipLevel = productMetadata.membershipLevel
+            // Get the productName value to use as membershipLevel
+            if (productMetadata.productName) {
+              membershipLevel = productMetadata.productName
             }
           }
           
@@ -63,7 +63,7 @@ export async function POST({ request }) {
               { $set: { membershipLevel: membershipLevel } }
             )
             
-            console.log(`Updated user membership level: ${updateResult.modifiedCount} document(s) modified`)
+            console.log(`Updated user membership level to ${membershipLevel}: ${updateResult.modifiedCount} document(s) modified`)
           }
           
         } catch (error) {
