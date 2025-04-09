@@ -1,4 +1,5 @@
 <script lang="ts">
+    //test
     import { goto } from '$app/navigation';
     import { redirect } from "@sveltejs/kit";
     import { page } from '$app/stores';
