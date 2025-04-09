@@ -60,7 +60,12 @@ export async function POST({ request }) {
             // Update the user's membership level
             const updateResult = await hosts.updateOne(
               { _id: objectId },
-              { $set: { membershipLevel: membershipLevel } }
+              { 
+                $set: { 
+                  membershipLevel: membershipLevel,
+                  stripeCustomerId: event.data.object.customer 
+                } 
+              }
             )
             
             console.log(`Updated user membership level to ${membershipLevel}: ${updateResult.modifiedCount} document(s) modified`)
