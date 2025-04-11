@@ -74,7 +74,7 @@ export const load: LayoutServerLoad = async (event) => {
               lastname: '',
               image: session.user.image,
               lobbyMinutesUsed: 0,
-              membershipLevel: 0,
+              membershipLevel: 'standard',
               stats: {
                 lectionariesStarted: 0,
                 studentsTaught: 0,
