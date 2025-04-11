@@ -13,9 +13,10 @@
     let timeMeterCanvasBackground: HTMLCanvasElement;
     let timeMeterCanvas: HTMLCanvasElement;
     
-    let lectionMins = 423
-    let lectionMinsMax = (10*60)
-    let lectionMinsRatio: any = ((lectionMins / lectionMinsMax) * 100).toString().slice(0, 2)
+    let lectionMins: any = $page.data.session?.user?.lobbyMinutesUsed
+    let lectionMinsMax = 36000
+    let lectionMinsRatio = Math.floor((lectionMins / lectionMinsMax) * 100)
+
 
     let currentTimeScale: string = '1 month' 
 
@@ -52,7 +53,9 @@
     }
         })
 
-        new Chart(timeMeterCanvas, {
+
+        if(($page.data.session?.user?.membershipLevel) === 'standard') {
+            new Chart(timeMeterCanvas, {
     type: "doughnut",
     data: {
         datasets: [
@@ -77,6 +80,34 @@
         }
     }
         })
+        }
+        else {
+            new Chart(timeMeterCanvas, {
+    type: "doughnut",
+    data: {
+        datasets: [
+            {
+                data: [100], // Completed and remaining portions
+                backgroundColor: ["#1E5167", "rgba(0,0,0,0)"], // Single color with transparent remainder
+                borderRadius: 10, // Rounded edges
+                borderWidth: 0,
+            },
+        ]
+    },
+    options: {
+        rotation: -90, // Start from the top center
+        circumference: 180, // Display only the top half for a half-donut effect
+        cutout: "75%", // Inner cutout for donut style
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false // Hide the legend
+            }
+        }
+    }
+        })
+        }
 
         const config: any = { 
             type: 'line', 
@@ -255,6 +286,8 @@
             </div>
 
             <div class="w-full h-[42%] mt-6 flex">
+
+                {#if ($page.data.session?.user?.membershipLevel) === 'standard'}
                 <div class="h-full w-[500px] bg-gray1 rounded-[20px] mr-6 relative">
 
                     <div class="w-full h-full absolute z-20 flex flex-col">
@@ -278,6 +311,29 @@
                     </div>
 
                 </div>
+                {:else}
+                <div class="h-full w-[500px] bg-gray1 rounded-[20px] mr-6 relative">
+
+                    <div class="w-full h-full absolute z-20 flex flex-col">
+                        <div class="w-full h-[90px] flex justify-center items-center ">
+                            <p class=" text-[22px] font-poppins font-medium text-darkgray">Lectionary Time Used</p>
+                        </div>
+                        <div class="w-full h-[90px]"></div>
+                        <div class="w-full flex-grow flex justify-center items-center">
+                            <p class="text-primary font-normal font-semibold text-[35px]">Unlocked</p>
+                        </div>
+                            <p class="text-gray2 font-poppins font-medium text-center my-2 text-[20px]">
+                                Thank you supporting Lection
+                            </p>
+                    </div>
+
+                    <div class="w-full h-full absolute p-14">
+                        <canvas bind:this={timeMeterCanvas} class=" w-full h-full absolute z-10"></canvas>
+                        <canvas bind:this={timeMeterCanvasBackground} class=" w-full h-full absolute z-0"></canvas>
+                    </div>
+
+                </div>
+                {/if}
 
                 <div class="h-full flex-grow">
 
