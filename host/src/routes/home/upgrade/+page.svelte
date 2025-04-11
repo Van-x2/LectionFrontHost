@@ -17,6 +17,7 @@
 
       if(type === 3) {
 
+        window.open(`https://buy.stripe.com/test_28o9AK5Jb1Rp5S84gg?prefilled_email=${$page.data.session?.user?.email}&client_reference_id=${$page.data.session?.user?._id}`, '_blank', 'noopener')
       }
     }
 

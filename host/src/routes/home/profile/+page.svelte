@@ -359,6 +359,13 @@
                         <a href={"https://billing.stripe.com/p/login/test_3cs00e0hpeAUbIIdQQ?prefilled_email=" + $page.data.session?.user?.email} class=" h-[40px] translate-y-[13px]">
                             <p class="text-[15px] font-medium underline">Edit Billing & Subscription Settings Here</p>
                         </a>
+
+                        {:else}
+
+                        <a href="/home/upgrade" class=" h-[40px] translate-y-[13px]">
+                            <p class="text-[15px] font-medium underline">Upgrade your subscription here</p>
+                        </a>
+
                         {/if}
                     </div>
 
