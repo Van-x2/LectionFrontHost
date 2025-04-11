@@ -30,6 +30,7 @@ declare global {
             accountType: 'external' | 'internal';
             verified: boolean;
             groups: any;
+            stripeCustomerId: string;
         }
         interface BulletinBoardEntries {
         

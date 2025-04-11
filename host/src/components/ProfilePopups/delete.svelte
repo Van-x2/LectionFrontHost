@@ -12,7 +12,7 @@
         const response = await fetch('/api/deleteaccount',
             {
             method: 'POST',
-            body: JSON.stringify({ id: $page.data.session?.user?._id }),
+            body: JSON.stringify({ id: $page.data.session?.user?._id, stripeid: $page.data.session?.user?.stripeCustomerId }),
             headers: {
                 'Content-Type': 'application/json'
             }
