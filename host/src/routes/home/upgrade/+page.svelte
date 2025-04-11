@@ -3,7 +3,8 @@
     import { goto } from '$app/navigation';
     import { redirect } from "@sveltejs/kit";
     import { page } from '$app/stores';
-  
+    
+    let purchaseTimescale = 'month'
   
     function continueButtonPressed (type: number) {
       console.log(type)
@@ -11,14 +12,30 @@
 
       }
       if(type === 2) {
-        console.log($page.data.session?.user?._id)
-        window.open(`https://buy.stripe.com/test_6oEaEOgnP2VtdkA9AB?prefilled_email=${$page.data.session?.user?.email}&client_reference_id=${$page.data.session?.user?._id}`, '_blank', 'noopener')
+ 
+        if(purchaseTimescale == 'month') {
+            window.open(`https://buy.stripe.com/test_6oEaEOgnP2VtdkA9AB?prefilled_email=${$page.data.session?.user?.email}&client_reference_id=${$page.data.session?.user?._id}`, '_blank', 'noopener')
+        }
+        else{
+            window.open(`https://buy.stripe.com/test_5kA14e2wZ9jR0xO5kn?prefilled_email=${$page.data.session?.user?.email}&client_reference_id=${$page.data.session?.user?._id}`, '_blank', 'noopener')
+        }
+
       }
 
       if(type === 3) {
 
-        window.open(`https://buy.stripe.com/test_28o9AK5Jb1Rp5S84gg?prefilled_email=${$page.data.session?.user?.email}&client_reference_id=${$page.data.session?.user?._id}`, '_blank', 'noopener')
+        if(purchaseTimescale == 'month') {
+            window.open(`https://buy.stripe.com/test_28o9AK5Jb1Rp5S84gg?prefilled_email=${$page.data.session?.user?.email}&client_reference_id=${$page.data.session?.user?._id}`, '_blank', 'noopener')
+        }
+        else{
+            window.open(`https://buy.stripe.com/test_eVabISgnPcw32FW146?prefilled_email=${$page.data.session?.user?.email}&client_reference_id=${$page.data.session?.user?._id}`, '_blank', 'noopener')
+        }
       }
+    }
+
+    function toggleTimescale() {
+        purchaseTimescale = (purchaseTimescale === 'month') ? 'year' : 'month';
+        console.log(purchaseTimescale)
     }
 
   
@@ -34,13 +51,25 @@
               Simple, Fair Pricing
           </h1>
   
-          <p class=" text-[18px] text-center w-[540px] font-light text-accent">
+          <p class=" text-[18px] text-center w-[540px] font-light text-accent mb-3">
               Use Lection for up to 10 hours per month - free of charge with no credit card required.
           </p>
+
+          <button on:click={toggleTimescale} class="w-[170px] h-[50px] rounded-[10px] border-[2px] border-gray-600 bg-gray-100 text-[18px] font-normal">
+            {#if purchaseTimescale == 'month'}
+            <p class="translate-y-[1px]">
+                Annual <span class="opacity-50 text-[13px] ">Save 20%</span>
+            </p>
+            {:else}
+            <p class="translate-y-[1px]">
+                Monthly
+            </p>
+            {/if}
+          </button>
   
   </div>
   
-  <div class="w-full flex-grow justify-center flex pointer-events-auto">
+  <div class="w-full flex-grow justify-center flex pointer-events-auto translate-y-3">
   
       <div class="h-full w-[300px] mx-[14px]">
           <div class="w-full h-[480px] rounded-[20px] border-secondary border-[2px] mt-7 relative">
@@ -55,10 +84,16 @@
                           <h1 class=" font-normal mb-3">
                               Standard
                           </h1>
-  
+                          
+                          {#if purchaseTimescale == 'month'}
                           <h2 class=" font-normal mb-2">
-                              $0 <span class="text-[15px] text-zinc-500">/month</span>
-                          </h2>
+                            $0 <span class="text-[15px] text-zinc-500">/month</span>
+                        </h2>
+                          {:else}
+                          <h2 class=" font-normal mb-2">
+                            $0 <span class="text-[15px] text-zinc-500">/year</span>
+                        </h2>
+                          {/if}
   
                           <div class="w-full h-[2px] rounded-full bg-secondary"></div>
                       </div>
@@ -147,10 +182,16 @@
                           <h1 class=" font-normal mb-3">
                               Unlimited
                           </h1>
-  
+
+                          {#if purchaseTimescale == 'month'}
                           <h2 class=" font-normal mb-2">
-                              $2 <span class="text-[15px] text-zinc-500">/month</span>
-                          </h2>
+                            $2 <span class="text-[15px] text-zinc-500">/month</span>
+                        </h2>
+                          {:else}
+                          <h2 class=" font-normal mb-2">
+                            $19 <span class="text-[15px] text-zinc-500">/year</span>
+                        </h2>
+                          {/if}
   
                           <div class="w-full h-[2px] rounded-full bg-accent"></div>
                       </div>
@@ -253,9 +294,15 @@
                               Premium
                           </h1>
   
+                          {#if purchaseTimescale == 'month'}
                           <h2 class=" font-normal mb-2">
-                              $5 <span class="text-[15px] text-zinc-500">/month</span>
-                          </h2>
+                            $5 <span class="text-[15px] text-zinc-500">/month</span>
+                        </h2>
+                          {:else}
+                          <h2 class=" font-normal mb-2">
+                            $48 <span class="text-[15px] text-zinc-500">/year</span>
+                        </h2>
+                          {/if}
   
                           <div class="w-full h-[2px] rounded-full bg-primary"></div>
                       </div>
