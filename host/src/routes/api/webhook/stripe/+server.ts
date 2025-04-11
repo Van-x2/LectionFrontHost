@@ -82,8 +82,50 @@ export async function POST({ request }) {
         break
         
       case 'customer.subscription.deleted':
+          try {
+            console.log('Subscription cancelled event received')
+            const customerId = event.data.object.customer
+            console.log('Customer ID:', customerId)
+        
+            const client = await getClient()
+            const Users = client.db('Users')
+            const hosts = Users.collection('hosts')
+        
+            const updateResult = await hosts.updateOne(
+              { stripeCustomerId: customerId },
+              { $set: { membershipLevel: 'standard' } }
+            )
+        
+            console.log('Update result:', updateResult)
+        
+            if (updateResult.matchedCount === 0) {
+              console.warn('No user found with that customer ID')
+            }
+          } catch (err) {
+            console.error('Error handling subscription cancellation', err)
+          }
+          break
+        
         // Handle subscription cancellation
         console.log('Subscription cancelled:', event.data.object)
+
+        const client = await getClient()
+        const Users = client.db('Users')
+        const hosts = Users.collection('hosts')
+        
+        
+        // Update the user's membership level
+        const updateResult = await hosts.updateOne(
+          { stripeCustomerId: event.data.object.customer },
+          { 
+            $set: { 
+              membershipLevel: 'standard'
+            } 
+          }
+        )
+
+
+        
         break
         
       case 'invoice.payment_succeeded':
