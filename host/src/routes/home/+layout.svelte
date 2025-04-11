@@ -14,7 +14,7 @@
                     </a>
                 </div>
                 <div class="h-full w-[700px] flex justify-end">
-
+                    {#if $page.data.session?.user?.membershipLevel ==! 'standard'}
                     <div class="h-full w-fit mx-[20px] -md:hidden flex justify-center items-center">
                         <a href="/home/pastlobbies">
                             <p class="w-fit text-nowrap text-white text-[14px] font-poppins">
@@ -22,6 +22,15 @@
                             </p>
                         </a>
                     </div>
+                    {:else}
+                    <div class="h-full w-fit mx-[20px] -md:hidden flex justify-center items-center pointer-events-none opacity-40">
+                        <a href="/home/pastlobbies">
+                            <p class="w-fit text-nowrap text-white text-[14px] font-poppins">
+                                Past Lectionaries
+                            </p>
+                        </a>
+                    </div>
+                    {/if}
 
                     <div class="h-[100%] w-[2px] flex justify-center flex-col -md:hidden">
                         <div class="h-[85%] w-[2px] bg-gray-100 rounded-full">
