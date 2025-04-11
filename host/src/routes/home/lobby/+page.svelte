@@ -405,6 +405,7 @@
 
                     <div class="w-full h-fit rounded-[15px] mt-4">
 
+                        {#if $page.data.session?.user?.membershipLevel ==! 'standard'}
                         <div bind:this={groupSelectInputField} class="w-full h-fit flex rounded-[15px] bg-darkgray overflow-hidden font-poppins text-[15px]">
 
                             <div 
@@ -445,6 +446,7 @@
                             </div>
 
                         </div>
+                        {/if}
 
                     </div>
 
