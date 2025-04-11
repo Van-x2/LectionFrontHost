@@ -1,6 +1,7 @@
 <script lang="ts">
 //Media Imports
 import leftLandingPhoto from '../../media/images/leftLandingPhoto.png'
+import rightLandingPhoto from '../../media/images/rightLandingPhoto.png'
 import { onMount } from 'svelte';
 import { signIn } from '@auth/sveltekit/client';
 import { signOut } from '@auth/sveltekit/client';
@@ -37,24 +38,25 @@ onMount(() => {
                 </div>
             </div>
         </div>
-        <div class="h-full w-[30%] bg-red-500 flex flex-col pointer-events-none">
+        <div class="h-full w-[30%] flex flex-col pointer-events-none items-end justify-end ">
+            <img class="absolute w-[720px]  translate-x-[280px] -translate-y-[80px]" src={rightLandingPhoto} alt="Laptop and Ipad displaying Lection Educator app">
         </div>
     </div>
     <div class="w-full h-fit bg-slate-300">
-        About Me Goes Here!
+        Explain how it works here!
         <br>
-        About Me Goes Here!
+        Explain how it works here!
         <br>
-        About Me Goes Here!
+        Explain how it works here!
         <br>
-        About Me Goes Here!
+        Explain how it works here!
         <br>
-        About Me Goes Here!
+        Explain how it works here!
         <br>
-        About Me Goes Here!
+        Explain how it works here!
         <br>
-        About Me Goes Here!
+        Explain how it works here!
         <br>
-        About Me Goes Here!
+        Explain how it works here!
         <br>
     </div>
