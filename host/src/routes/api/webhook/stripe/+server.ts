@@ -8,6 +8,9 @@ import { ObjectId } from 'mongodb'
 const stripe = new Stripe(STRIPE_SECRET_KEY)
 const webhookSecret = STRIPE_WEBHOOK_SECRET
 
+const unlimitedId = 'prod_RvmY84XivcBTOm'
+const premiumId = 'prod_RvmZeSK9BSsm5m'
+
 export async function POST({ request }) {
   const body = await request.text()
   const signature = request.headers.get('stripe-signature')
@@ -76,10 +79,42 @@ export async function POST({ request }) {
         }
         break
         
-      case 'customer.subscription.updated':
-        // Handle subscription update
-        console.log('Subscription updated:', event.data.object)
-        break
+        case 'customer.subscription.updated':
+          console.log('Subscription updated:', event.data.object.id)
+          const customerId = event.data.object.customer
+          const items = event.data.object.items.data
+        
+          let membershipLevel = 'standard'
+        
+          for (const item of items) {
+            const productId = item.price.product
+            if (productId === unlimitedId) {
+              membershipLevel = 'unlimited'
+              break
+            }
+            if (productId === premiumId) {
+              membershipLevel = 'premium'
+              break
+            }
+          }
+        
+          try {
+            const client = await getClient()
+            const Users = client.db('Users')
+            const hosts = Users.collection('hosts')
+        
+            const result = await hosts.updateOne(
+              { stripeCustomerId: customerId },
+              { $set: { membershipLevel } }
+            )
+        
+            console.log(`Updated membershipLevel to ${membershipLevel}`, result.modifiedCount)
+          } catch (err) {
+            console.error('Error updating membershipLevel:', err)
+          }
+        
+          break
+        
         
       case 'customer.subscription.deleted':
           try {
