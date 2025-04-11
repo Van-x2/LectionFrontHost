@@ -20,7 +20,7 @@ declare global {
             password: string;
             image: string;
             lobbyMinutesUsed: number;
-            membershipLevel: number;
+            membershipLevel: string;
             stats: {
                 lectionariesStarted: number;
                 studentsTaught: number;

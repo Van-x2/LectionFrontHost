@@ -37,6 +37,7 @@
                         </a>
                     </div>
 
+                    {#if ($page.data.session?.user?.membershipLevel) === 'standard' }
                     <div class="h-full w-fit ml-[19px] mr-[15px] flex justify-center flex-col">
                         <a href="/home/upgrade" class="w-[130px] h-[65%] ">
                             <button class="w-full h-full justify-center border-[2px] rounded-[10px] border-white text-white text-[14px] font-poppins">
@@ -44,6 +45,7 @@
                             </button>
                         </a>
                     </div>
+                    {/if}
 
                     <div class=" h-full aspect-square flex justify-center items-center">
                         <a href="/home/profile" class="flex justify-center items-center">
