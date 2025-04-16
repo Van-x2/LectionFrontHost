@@ -5,18 +5,26 @@ import rightLandingPhoto from '../../media/images/rightLandingPhoto.png'
 import { onMount } from 'svelte';
 import { signIn } from '@auth/sveltekit/client';
 import { signOut } from '@auth/sveltekit/client';
-let leftLandingPhotoAwait: any
+let leftLandingPhotoCode: HTMLElement
+let rightLandingPhotoCode: HTMLElement
 
 onMount(() => {
-    leftLandingPhotoAwait = leftLandingPhoto
+setTimeout(() => {
+    leftLandingPhotoCode.classList.remove('-translate-x-[100px]')
+    rightLandingPhotoCode.classList.remove('translate-x-[100px]')
+    leftLandingPhotoCode.classList.add('opacity-100')
+    rightLandingPhotoCode.classList.add('opacity-100')
+},200)
 })
 
 </script>
 
     <div class="w-full h-full flex justify-center">
-        <div class="h-full w-[30%] flex flex-col pointer-events-none">
+        <div class="h-full w-[30%] flex flex-col">
             <div class="w-full h-[16%]"></div>
-            <img class="w-[400px] -translate-x-8" src={leftLandingPhotoAwait} alt="phones displaying Lection student app">
+            <div bind:this={leftLandingPhotoCode} class=" w-full h-[84%] flex justify-start items-start opacity-0 transition-all duration-[1500ms] -translate-x-[100px]">
+                <img class="w-[400px] -translate-x-8 pointer-events-none" src={leftLandingPhoto} alt="phones displaying Lection student app">
+            </div>
         </div>
         <div class="h-full w-[40%] ">
             <div class="w-full h-[60%] flex-col items-start">
@@ -38,9 +46,12 @@ onMount(() => {
                 </div>
             </div>
         </div>
-        <div class="h-full w-[30%] flex flex-col pointer-events-none items-end justify-end ">
-            <img class="absolute w-[720px]  translate-x-[280px] -translate-y-[80px]" src={rightLandingPhoto} alt="Laptop and Ipad displaying Lection Educator app">
-        </div>
+        <div class="h-full w-[30%] flex flex-col items-start">
+            <div class="w-full h-[16%]"></div>
+            <div bind:this={rightLandingPhotoCode} class="w-full h-[84%] flex justify-end items-start opacity-0 transition-all hover:opacity-100 duration-[1500ms] translate-x-[100px]">
+                <img class="w-[400px] pointer-events-none" src={rightLandingPhoto} alt="phones displaying Lection student app">
+            </div>
+          </div>          
     </div>
     <div class="w-full h-fit bg-slate-300">
         Explain how it works here!
@@ -48,7 +59,7 @@ onMount(() => {
         Explain how it works here!
         <br>
         Explain how it works here!
-        <br>
+        <br> 
         Explain how it works here!
         <br>
         Explain how it works here!
