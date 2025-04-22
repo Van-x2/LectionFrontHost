@@ -50,7 +50,7 @@ function getCheckoutCookie() {
         </h1>
 
         <p class=" text-[18px] text-center w-[540px] font-light text-accent">
-            Use Lection for up to 10 hours per month - free of charge with no credit card required.
+            Use Lection for up to 5 hours per month - free of charge with no credit card required.
         </p>
 
 </div>
@@ -89,7 +89,7 @@ function getCheckoutCookie() {
                             </div>
 
                             <div class=" w-full h-full flex justify-start items-center pl-1">
-                                <p class="text-[12px] text-nowrap">10 Monthly Lectionary Hours</p>
+                                <p class="text-[12px] text-nowrap">5 Monthly Lectionary Hours</p>
                             </div>
                         </div>
 

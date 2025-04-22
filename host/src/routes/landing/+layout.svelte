@@ -3,8 +3,8 @@
   import { signIn } from "@auth/sveltekit/client";
 
 </script>
-<div class="w-screen h-screen bg-white relative font-poppins font-medium overflow-x-hidden flex flex-col">
-  <div class="w-full h-[150px] flex items-center">
+<div class="w-screen h-screen relative font-poppins font-medium overflow-x-hidden flex flex-col">
+  <div class="w-full h-[150px] flex items-center flex-shrink-0">
     <div class="w-full h-14">
       <div class="w-full h-full flex pl-[5%] pr-[7%] justify-between">
         <div class="h-full w-48 flex justify-center items-center self-start">
@@ -46,7 +46,7 @@
       </div>
     </div>
   </div>
-  <div class="w-full flex-grow">
+  <div class="w-full">
     <slot />
   </div>
 </div>

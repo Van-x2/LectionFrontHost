@@ -40,6 +40,13 @@
 
     let groupsArray
 
+    let lectionMins: any = $page.data.session?.user?.lobbyMinutesUsed
+    if(Number.isNaN(lectionMins)) {
+        lectionMins = 1
+    }
+    console.log(lectionMins)
+    
+
     if($page.data.session?.user?.groups) {
     groupsArray = $page.data.session?.user?.groups
     }
