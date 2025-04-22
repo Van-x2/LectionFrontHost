@@ -52,7 +52,7 @@
           </h1>
   
           <p class=" text-[18px] text-center w-[540px] font-light text-accent mb-3">
-              Use Lection for up to 10 hours per month - free of charge with no credit card required.
+              Use Lection for up to 5 hours per month - free of charge with no credit card required.
           </p>
 
           <button on:click={toggleTimescale} class="w-[170px] h-[50px] rounded-[10px] border-[2px] border-gray-600 bg-gray-100 text-[18px] font-normal">
@@ -109,7 +109,7 @@
                               </div>
   
                               <div class=" w-full h-full flex justify-start items-center pl-1">
-                                  <p class="text-[12px] text-nowrap">10 Monthly Lectionary Hours</p>
+                                  <p class="text-[12px] text-nowrap">5 Monthly Lectionary Hours</p>
                               </div>
                           </div>
   

@@ -14,7 +14,10 @@
     let timeMeterCanvas: HTMLCanvasElement;
     
     let lectionMins: any = $page.data.session?.user?.lobbyMinutesUsed
-    let lectionMinsMax = 36000
+    if(Number.isNaN(lectionMins)) {
+        lectionMins = 1
+    }
+    let lectionMinsMax = 18000
     let lectionMinsRatio = Math.floor((lectionMins / lectionMinsMax) * 100)
 
 
