@@ -457,11 +457,20 @@
 
                     </div>
 
+                    {#if ($page.data.session?.user?.membershipLevel == 'standard' && lectionMins >= 18000)}
                     <div class="w-full h-[60px] mt-8 text-[18px]">
+                        <button on:click={createLobby} class="w-full h-full bg-darkgray rounded-[15px] font-poppins font-medium text-gray1 active:bg-[#252525] active:translate-y-[1px] transition duration-100 opacity-20 pointer-events-none">
+                            Create
+                        </button>
+                    </div>
+                    <p class="text-center mt-4 p-1 text-darkred font-poppins text-[18px] font-medium">You have exceeded your monthly Lectionary hours</p>
+                    {:else}
+                    <div class="w-full h-[60px] mt-10 text-[18px]">
                         <button on:click={createLobby} class="w-full h-full bg-darkgray rounded-[15px] font-poppins font-medium text-gray1 active:bg-[#252525] active:translate-y-[1px] transition duration-100">
                             Create
                         </button>
                     </div>
+                    {/if}
 
                 </div>
 
@@ -656,7 +665,11 @@
 
 
         <div id="createLobbyMain" class="w-full h-full flex justify-center items-center absolute p-8 text-center z-0 bg-white">
+            {#if ($page.data.session?.user?.membershipLevel == 'standard' && lectionMins >= 18000)}
+            <p id="createLobbyMainInformText" class="text-darkred font-normal font-semibold text-[30px] -translate-y-24">Maximum monthly Lectionary hours exceeded. Upgrade to a paid plan or wait until monthly top up to use Lection again.</p>
+            {:else}
             <p id="createLobbyMainInformText" class="text-darkgray font-normal font-semibold text-[30px] -translate-y-24">Create a Lectionary to Invite Students</p>
+            {/if}
         </div>
 
         <div id="preLobbyMain" class="w-full h-full absolute -z-10 bg-white">
