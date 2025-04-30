@@ -46,9 +46,9 @@
 </script>
 
 <div class="w-screen h-screen p-[20px]">
-    <div class="w-full h-full bg-white flex">
+    <div class="w-full h-full bg-white flex -lg:justify-center">
 
-        <div class="w-[50%] h-full relative">
+        <div class="w-[50%] h-full relative -lg:hidden">
             <div class="w-full h-full absolute">
                 <div class="w-full h-full relative">
 
@@ -114,6 +114,7 @@
 
                 </div>
             </div>
+
             <div class="w-full h-full flex justify-center items-center relative">
 
 

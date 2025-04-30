@@ -216,7 +216,7 @@
             <div class="w-full h-full flex flex-col">
 
                 <div class="w-full h-[120px] mb-8 rounded-[20px] shadow-[inset_0_0_10px_rgba(0,0,0,0.2)] shadow-accent flex justify-center items-center">
-                    <p class=" font-normal italic text-accent text-[35px]">Welcome back {(($page.data.session?.user?.firstname)?.split(' ')[0] || '').replace(/\s/g, '').replace(/^(.)(.*)$/, (_, first, rest) => first.toUpperCase() + rest.toLowerCase())}!</p>
+                    <p class=" font-normal italic text-accent text-[35px] text-center overflow-hidden -lg:text-[30px]">Welcome back {(($page.data.session?.user?.firstname)?.split(' ')[0] || '').replace(/\s/g, '').replace(/^(.)(.*)$/, (_, first, rest) => first.toUpperCase() + rest.toLowerCase())}!</p>
                 </div>
 
                 <div class="w-full flex-grow bg-gray1 rounded-[20px] flex flex-col px-5 pb-5">
@@ -254,9 +254,9 @@
 
             <div class="w-full flex-grow bg-gray1 rounded-[20px] flex flex-col px-3 pb-3">
                 <div class="w-full h-[80px] flex items-center">
-                    <h1 class=" text-[22px] font-poppins font-medium text-darkgray ml-7">Lectionary Insights</h1>
+                    <h1 class=" text-[22px] font-poppins font-medium text-darkgray ml-7 text-nowrap">Lectionary Insights</h1>
 
-                    <div class="w-fit px-4 h-[53px] flex items-center mx-8 bg-white shadow-sm rounded-full">
+                    <div class="w-fit px-4 h-[53px] flex items-center mx-8 bg-white shadow-sm rounded-full -lg:hidden">
                         {#each ['1 day', '2 weeks', '1 month', '6 months', '1 year'] as timeScale}
                             <button class:pointer-events-none={currentTimeScale === timeScale} on:click={() => { currentTimeScale = timeScale }}>
                                 <p 
@@ -291,7 +291,7 @@
             <div class="w-full h-[42%] mt-6 flex">
 
                 {#if ($page.data.session?.user?.membershipLevel) === 'standard'}
-                <div class="h-full w-[500px] bg-gray1 rounded-[20px] mr-6 relative">
+                <div class="h-full w-[500px] -xl:w-full bg-gray1 rounded-[20px] xl:mr-6 relative">
 
                     <div class="w-full h-full absolute z-20 flex flex-col">
                         <div class="w-full h-[90px] flex justify-center items-center ">
@@ -315,7 +315,7 @@
 
                 </div>
                 {:else}
-                <div class="h-full w-[500px] bg-gray1 rounded-[20px] mr-6 relative">
+                <div class="h-full w-[500px] -xl:w-full bg-gray1 rounded-[20px] xl:mr-6 relative">
 
                     <div class="w-full h-full absolute z-20 flex flex-col">
                         <div class="w-full h-[90px] flex justify-center items-center ">
@@ -338,7 +338,7 @@
                 </div>
                 {/if}
 
-                <div class="h-full flex-grow">
+                <div class="h-full flex-grow -xl:hidden">
 
                     <div class="w-full h-1/3  pb-2">
                         <div class="w-full h-full rounded-[20px] bg-secondary flex justify-between px-5 py-2 items-center">
