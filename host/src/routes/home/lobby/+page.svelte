@@ -393,7 +393,7 @@
 <div id="parentPage" class="w-full h-full flex  overflow-hidden">
 
 
-    <div class="w-[380px] h-full bg-gray1 border-r-[3px] border-accent relative">
+    <div class="w-[380px] h-full bg-gray1 border-r-[3px] border-accent relative -sm:w-full">
 
 
         <div id="createLobbyMenu" class="w-full h-full bg-gray1 absolute z-0">
@@ -497,10 +497,13 @@
         <div id="preLobbyMenu" class="w-full h-full bg-gray1 absolute -z-10 overflow-y-auto">
 
 
-            <div class="w-full h-[30%] flex-col flex justify-between p-4 px-4 pointer-events-none select-none">
+            <div class="w-full flex-col flex justify-between p-4 px-4 pointer-events-none select-none">
 
+                <div class="w-full h-[100px]">
 
-                <div class="w-full h-12 flex justify-between translate-y-[100px]">
+                </div>
+
+                <div class="w-full h-12 flex justify-between mb-8">
                     <div class="w-[32%] h-[100%] flex">
                         <div class="w-full h-full flex justify-center items-center font-normal font-bold text-secondary text-[33px] translate-y-[2px]">
                             <p>00:00</p>
@@ -527,8 +530,8 @@
 
             </div>
 
-            <div class="w-full h-[70%] flex flex-col items-center justify-between p-4 px-6">
-                    <div class="w-full h-fit">
+            <div class="w-full flex flex-col items-center justify-between p-4 px-6">
+                    <div class="w-full h-fit mb-8">
                         <div class="w-full h-[200px] rounded-[15px] mt-4">
                             <div class="w-full h-full rounded-[15px] bg-gray1 transition duration-100 border-2 border-primary relative">
                                 <div class="w-full h-full absolute flex p-[10px] justify-end items-end pointer-events-none">
@@ -537,7 +540,7 @@
                                 <textarea bind:value={promptField} class="w-full h-full rounded-[15px] bg-gray2 focus:bg-gray1 border-none outline-none transition duration-100 m-0 text-primary font-poppins resize-none p-[14px]" spellcheck="false" placeholder="Enter the starting prompt of the Lectionary" rows="4"></textarea>
                             </div>
                         </div>
-                        <div class="w-full h-[50px] mt-4 text-[18px]">
+                        <div class="w-full h-[50px] mt-4 text-[18px] mb-8">
                             <button on:click={startLobby} class="w-full h-full bg-accent rounded-[15px] font-poppins font-medium text-gray1 active:bg-[#899fa9] active:translate-y-[1px] transition duration-100">
                                 <p class="translate-y-[2px]">Begin the Lectionary</p>
                             </button>
@@ -569,10 +572,13 @@
         <div id="activeLobbyMenu" class="w-full h-full bg-gray1 absolute -z-20 overflow-y-auto">
 
 
-            <div class="w-full h-[30%] flex-col flex justify-between p-4 px-4 pointer-events-none select-none">
+            <div class="w-full flex-col flex justify-between p-4 px-4 pointer-events-none select-none">
 
+                <div class="w-full h-[100px]">
 
-                <div class="w-full h-12 flex justify-between translate-y-[100px]">
+                </div>
+
+                <div class="w-full h-12 flex justify-between mb-8">
                     <div class="w-[32%] h-[100%] flex">
                         <div class="w-full h-full flex justify-center items-center font-normal font-bold text-secondary text-[33px] translate-y-[2px]">
                             <p id="timer">00:00</p>
@@ -599,7 +605,7 @@
 
             </div>
 
-            <div class="w-full h-[70%] flex flex-col items-center justify-between p-4 px-6">
+            <div class="w-full flex flex-col items-center justify-between p-4 px-6">
                     <div class="w-full h-fit">
                         <div class="w-full h-[200px] rounded-[15px] mt-4">
                             <div class="w-full h-full rounded-[15px] bg-gray1 transition duration-100 border-2 border-primary relative">
@@ -661,7 +667,7 @@
 
     </div>
 
-    <div class="flex-grow bg-white relative">
+    <div class="flex-grow bg-white relative -sm:hidden">
 
 
         <div id="createLobbyMain" class="w-full h-full flex justify-center items-center absolute p-8 text-center z-0 bg-white">
