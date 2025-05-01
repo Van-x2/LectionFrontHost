@@ -9,6 +9,7 @@
 
     let promptField = ''
     let hostId = $page.data.session?.user?._id
+    let lobbyMembershipLevel: string = $page.data.session?.user?.membershipLevel
     let joincode = ''
     let currentPrompt: number = 0
     let currentResponseSet: any = []
@@ -79,6 +80,7 @@
       const thenDate = (new Date()).toISOString()
       const lobby = {
         hostid: hostId,
+        lobbyMembershipLevel: lobbyMembershipLevel,
         joincode: null,
         group: currentGroupValue,
         prompts: [],
@@ -494,7 +496,7 @@
 
         </div>
 
-        <div id="preLobbyMenu" class="w-full h-full bg-gray1 absolute -z-10 overflow-y-auto">
+        <div id="preLobbyMenu" class="w-full h-full bg-gray1 absolute z-10 overflow-y-auto">
 
 
             <div class="w-full flex-col flex justify-between p-4 px-4 pointer-events-none select-none">
@@ -509,15 +511,21 @@
                             <p>00:00</p>
                         </div>
                     </div>
-                    <div class="w-[20%] h-[100%] flex">
+                    <div class="w-[35%] h-[100%] flex bg-pink-300">
                         <div class="w-[50%] h-full flex justify-center items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-[90%] h-[90%] stroke-secondary">
                                 <path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                             </svg>                                                 
                         </div>
+                        {#if $page.data.session?.user?.membershipLevel == 'standard'}
+                        <div class="w-[50%] h-full flex justify-center items-center font-normal font-bold text-secondary text-[34px] translate-y-[2px]">
+                            <p>{numOfParticipants}/25</p>
+                        </div>
+                        {:else}
                         <div class="w-[50%] h-full flex justify-center items-center font-normal font-bold text-secondary text-[34px] translate-y-[2px]">
                             <p>{numOfParticipants}</p>
                         </div>
+                        {/if}
                     </div>
                 </div>
 
