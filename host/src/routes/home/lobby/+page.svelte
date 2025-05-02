@@ -3,10 +3,10 @@
     //importing stuffs
     import { page } from "$app/stores"
     import { onMount } from "svelte";
-
-
+ 
+ 
     //defining stuffs
-
+ 
     let promptField = ''
     let hostId = $page.data.session?.user?._id
     let lobbyMembershipLevel: string = $page.data.session?.user?.membershipLevel
@@ -23,7 +23,7 @@
     let lastParticipationColor: string = 'bg-darkgray'
     let currentConfidenceMeterColor: string
     let currentParticipationColor: string
-
+ 
     //doc element variables
     let createLobbyMainInformText: any
     let createLobbyMain: any
@@ -36,30 +36,30 @@
     let confidenceMeter: any
     let groupSelectInputField: any
     let groupSelectInputFieldOpener: any
-
+ 
     let groupSelectInputFieldOpen: boolean = false
-
+ 
     let groupsArray
-
+ 
     let lectionMins: any = $page.data.session?.user?.lobbyMinutesUsed
     if(Number.isNaN(lectionMins)) {
         lectionMins = 1
     }
     console.log(lectionMins)
     
-
+ 
     if($page.data.session?.user?.groups) {
     groupsArray = $page.data.session?.user?.groups
     }
     else{
     groupsArray = []
     }
-
+ 
     let currentGroup = ''
     let currentGroupValue = ''
-
-
-
+ 
+ 
+ 
     onMount(() => {
         createLobbyMainInformText = document.getElementById('createLobbyMainInformText')
         createLobbyMain = document.getElementById('createLobbyMain')
@@ -70,10 +70,10 @@
         timer = document.getElementById('timer')
         participationMeter = document.getElementById('participationMeter')
         confidenceMeter = document.getElementById('confidenceMeter')
-
-
+ 
+ 
     })
-
+ 
     //function stuffs
     function createLobby() {
     createLobbyMainInformText.textContent = 'Creating the Lectionary...'
@@ -110,10 +110,10 @@
         //switches to the preLobby page view
         preLobbyMenu.classList.remove('-z-10')
         preLobbyMenu.classList.add('z-10')
-
+ 
         preLobbyMain.classList.remove('-z-10')
         preLobbyMain.classList.add('z-10')
-
+ 
         joincode = data.joincode
         console.log(joincode)
       })
@@ -124,27 +124,27 @@
       })
   
       async function lobbyHostCom() {
-        let route = `https://lection-backend.fly.dev/lobbyhost${joincode}`
+        let route = `https://lection-backend.fly.dev/lobbyhost/${joincode}`
         const source = new EventSource(route)
         source.addEventListener('message', message => {
           let response = JSON.parse(message.data)
-
+ 
           numOfParticipants = response.participants.length
-
+ 
           //sorts through the returned participants & their responses
             response.participants.forEach((participant: any) => {
                 if(currentPhase === 1) {
                     if (participant.responses && participant.responses.length > 0) {
                         const highestPromptIndex = Math.max(...participant.responses.map((response: any) => response.promptIndex))
-
+ 
                         if (highestPromptIndex === (currentPrompt-1)) {
                             participant.status = 1
                         }
-
+ 
                         if (highestPromptIndex === (currentPrompt-2)) {
                             participant.status = 2
                         }
-
+ 
                         if (highestPromptIndex < (currentPrompt-2)) {
                             participant.status = 3
                         }
@@ -159,9 +159,9 @@
             })
             currentResponseSet = response.participants
             
-
+ 
             //Average Confidence Calculations
-
+ 
             const averageConfidenceArray: any = []
             //pulls confidence values from current responses
             currentResponseSet.forEach((participant: any) => {
@@ -173,7 +173,7 @@
                 }
             }
             })
-
+ 
             //calculates average confidence value
             if (averageConfidenceArray.length > 0) {
                 //adds up values of array
@@ -184,10 +184,10 @@
                 currentConfidencePercentage = (average / 5) * 100
                 currentConfidencePercentage = Math.trunc(currentConfidencePercentage)
             }
-
-
+ 
+ 
             //Average participation Calculations
-
+ 
             let studentParticipationCount: number = 0
             currentResponseSet.forEach((participant: any) => {
                 if (participant.status === 1) {
@@ -198,7 +198,7 @@
             })
             currentParticipationPercentage = ((studentParticipationCount/currentResponseSet.length)*100)
             currentParticipationPercentage = Math.trunc(currentParticipationPercentage)
-
+ 
             if(currentPhase === 1) {
                 if(currentConfidencePercentage >= 30) {
                 currentConfidenceMeterColor = 'bg-red-500'
@@ -209,12 +209,12 @@
                 if(currentConfidencePercentage >= 70) {
                 currentConfidenceMeterColor = 'bg-green-500'
                 }
-
+ 
                 confidenceMeter.classList.remove(lastConfidenceMeterColor)
                 confidenceMeter.classList.add(currentConfidenceMeterColor)
                 lastConfidenceMeterColor = currentConfidenceMeterColor
-
-
+ 
+ 
                 if(currentParticipationPercentage >= 30) {
                 currentParticipationColor = 'bg-red-500'
                 }
@@ -224,23 +224,23 @@
                 if(currentParticipationPercentage >= 70) {
                 currentParticipationColor = 'bg-green-500'
                 }
-
+ 
                 participationMeter.classList.remove(lastParticipationColor)
                 participationMeter.classList.add(currentParticipationColor)
                 lastParticipationColor = currentParticipationColor
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
                 confidenceMeter.style.width = `${currentConfidencePercentage}%`
-
+ 
                 participationMeter.style.width = `${currentParticipationPercentage}%`
-
+ 
             }
-
-
-
+ 
+ 
+ 
         })
       }
     }
@@ -249,7 +249,7 @@
       let promptContent = {
         prompt: promptField
       }
-      let route = `https://lection-backend.fly.dev/hostsubmitprompt${joincode}${hostId}`
+      let route = `https://lection-backend.fly.dev/hostsubmitprompt/${joincode}/${hostId}`
       //submit prompt to mongodb
       fetch(route, 
     {
@@ -264,39 +264,39 @@
         if (!response.ok) {
           throw new Error(`There was an error: ${response.status}`)
         }
-
+ 
         //clears the prompt input field
         promptField = ''
-
+ 
         //increment the current prompt
         currentPrompt = currentPrompt + 1
-
+ 
         //increment lobby phase to 2
         currentPhase = 1
-
+ 
         currentParticipationPercentage = 0
         currentConfidencePercentage = 0
-
+ 
         let tempCurrentResponseSet = currentResponseSet
-
-
+ 
+ 
         //resets stats card
         participationMeter.style.width = `0%`
         confidenceMeter.style.width = `0%`
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
         tempCurrentResponseSet.forEach((participant: any) => {
             participant.status = 2
           })
         
           currentResponseSet = tempCurrentResponseSet
-
+ 
         return response
       })
-
+ 
     }
   
     function closeLobby() {
@@ -309,7 +309,7 @@
       createLobbyMainInformText.textContent = 'Ending the Lectionary...'
       
       
-      let route = `https://lection-backend.fly.dev/hostlobbyclose${joincode}${hostId}`
+      let route = `https://lection-backend.fly.dev/hostlobbyclose/${joincode}/${hostId}`
   
       fetch(route, 
     {
@@ -333,17 +333,17 @@
         location.reload()
       }, 1000)
     }
-
+ 
     function updateTimer() {
     seconds++
     if (seconds === 60) {
         seconds = 0
         minutes++
     }
-
+ 
     let formattedMinutes = String(minutes).padStart(2, '0')
     let formattedSeconds = String(seconds).padStart(2, '0')
-
+ 
     timer.textContent = `${formattedMinutes}:${formattedSeconds}`
     }
     function startLobby() {
@@ -361,12 +361,12 @@
                 preLobbyMenuInformText.classList.remove('text-primary')
                 preLobbyMenuInformText.classList.add('text-darkred')
                 preLobbyMenuInformText.classList.remove('opacity-0')
-
+ 
             },200)
         }
         
     }
-
+ 
     function toggleMenu() {
         if (groupSelectInputFieldOpen === false) {
             groupSelectInputFieldOpener.classList.add("rotate-90")
@@ -376,9 +376,9 @@
         }
         groupSelectInputFieldOpen = !groupSelectInputFieldOpen
     }
-
+ 
     function groupSelected(group: any) {
-
+ 
         currentGroup = group
         if(group === 'new') {
             currentGroupValue = ''
@@ -389,8 +389,8 @@
         groupSelectInputFieldOpener.classList.remove("rotate-90")
         groupSelectInputFieldOpen = false
     }
-
-</script>
+  
+ </script>
 
 <div id="parentPage" class="w-full h-full flex  overflow-hidden">
 
@@ -414,7 +414,7 @@
 
                     <div class="w-full h-fit rounded-[15px] mt-4">
 
-                        {#if $page.data.session?.user?.membershipLevel ==! 'standard'}
+                        {#if $page.data.session?.user?.membershipLevel !== 'standard'}
                         <div bind:this={groupSelectInputField} class="w-full h-fit flex rounded-[15px] bg-darkgray overflow-hidden font-poppins text-[15px]">
 
                             <div 
@@ -496,7 +496,7 @@
 
         </div>
 
-        <div id="preLobbyMenu" class="w-full h-full bg-gray1 absolute z-10 overflow-y-auto">
+        <div id="preLobbyMenu" class="w-full h-full bg-gray1 absolute -z-10 overflow-y-auto">
 
 
             <div class="w-full flex-col flex justify-between p-4 px-4 pointer-events-none select-none">
@@ -511,7 +511,7 @@
                             <p>00:00</p>
                         </div>
                     </div>
-                    <div class="w-[35%] h-[100%] flex bg-pink-300">
+                    <div class="w-[40%] h-[100%] flex">
                         <div class="w-[50%] h-full flex justify-center items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-[90%] h-[90%] stroke-secondary">
                                 <path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
