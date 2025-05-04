@@ -122,7 +122,7 @@
                               </div>
   
                               <div class=" w-full h-full flex justify-start items-center pl-1">
-                                  <p class="text-[12px] text-nowrap">Up To 25 Participants</p>
+                                  <p class="text-[12px] text-nowrap">Up To 10 Participants</p>
                               </div>
                           </div>
   
