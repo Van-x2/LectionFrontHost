@@ -519,7 +519,7 @@
                         </div>
                         {#if $page.data.session?.user?.membershipLevel == 'standard'}
                         <div class="w-[50%] h-full flex justify-center items-center font-normal font-bold text-secondary text-[34px] translate-y-[2px]">
-                            <p>{numOfParticipants}/25</p>
+                            <p>{numOfParticipants}/10</p>
                         </div>
                         {:else}
                         <div class="w-[50%] h-full flex justify-center items-center font-normal font-bold text-secondary text-[34px] translate-y-[2px]">
