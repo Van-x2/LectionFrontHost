@@ -693,7 +693,7 @@
             {/if}
         </div>
 
-        <div id="preLobbyMain" class="w-full h-full absolute z-10 bg-white">
+        <div id="preLobbyMain" class="w-full h-full absolute -z-10 bg-white">
             <div class="w-full h-full relative">
                 <div class="w-full h-[165px] flex items-end shadow-lg justify-between">
                     <p class="ml-4 mb-4 font-normal font-semibold text-[30px] text-darkgray">
