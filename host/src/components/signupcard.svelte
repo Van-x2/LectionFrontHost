@@ -241,7 +241,7 @@
         <div class="w-1/2 h-full px-[7px] py-[2px]">
             <button on:click={() => {signIn('google')}} class="w-full h-full border-[2px] border-gray2 rounded-[10px] active:scale-[103%] transition duration-100 active:border-secondary flex justify-center items-center relative">
                 <div class="w-full h-[90%] flex items-center px-2 absolute">
-                    <img class=" w-[25px] mr-2" alt="Google logo" src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png" />
+                    <img class=" w-[25px] mr-2" alt="Google logo" src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s48-fcrop64=1,00000000ffffffff-rw" />
                 </div>
                 <div class="w-fit h-[90%] flex items-center px-2">
                     <p class="text-[18px] text-neutral-500 font-poppins font-medium translate-y-[1px]">Google</p>
