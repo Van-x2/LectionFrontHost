@@ -9,10 +9,11 @@
  
     let promptField = ''
     let hostId = $page.data.session?.user?._id
-    let lobbyMembershipLevel: string = $page.data.session?.user?.membershipLevel
+    let lobbyMembershipLevel: any = $page.data.session?.user?.membershipLevel
     let joincode = ''
     let currentPrompt: number = 0
     let currentResponseSet: any = []
+    let totalResponseSet: any = []
     let currentPhase: number = 0
     let numOfParticipants: number = 0
     let seconds: number = 0
@@ -23,6 +24,7 @@
     let lastParticipationColor: string = 'bg-darkgray'
     let currentConfidenceMeterColor: string
     let currentParticipationColor: string
+    let currentViewingPrompt: number = 0
  
     //doc element variables
     let createLobbyMainInformText: any
@@ -57,6 +59,20 @@
  
     let currentGroup = ''
     let currentGroupValue = ''
+
+
+    type Prompt = {
+        promptBody: string;
+        promptIndex: number;
+    }
+
+    let allPrompts: {
+        prompts: Prompt[];
+        numberOfPrompts: number;
+    } = {
+        prompts: [],
+        numberOfPrompts: 0,
+    }
  
  
  
@@ -246,15 +262,15 @@
     }
   
     function submitPrompt() {
-      let promptContent = {
-        prompt: promptField
-      }
+        allPrompts.prompts.push({ promptBody: "My first prompt", promptIndex: currentPrompt })
+        allPrompts.numberOfPrompts = currentPrompt
+
       let route = `https://lection-backend.fly.dev/hostsubmitprompt/${joincode}/${hostId}`
       //submit prompt to mongodb
       fetch(route, 
     {
         method: "POST", 
-        body: JSON.stringify(promptContent),
+        body: JSON.stringify(allPrompts),
         headers: {
           'Content-Type': 'application/json'
         }
@@ -283,6 +299,11 @@
         //resets stats card
         participationMeter.style.width = `0%`
         confidenceMeter.style.width = `0%`
+
+
+        //Adds the current response set to the total response set
+        totalResponseSet.push(currentResponseSet)
+        totalResponseSet = totalResponseSet
  
  
  
@@ -688,15 +709,39 @@
 
         <div id="preLobbyMain" class="w-full h-full absolute -z-10 bg-white">
             <div class="w-full h-full relative">
-                <div class="w-full h-[165px] flex items-end shadow-lg">
+                <div class="w-full h-[165px] flex items-end shadow-lg justify-between">
                     <p class="ml-4 mb-4 font-normal font-semibold text-[30px] text-darkgray">
                         Participants:
                     </p>
+                    <div class="w-[250px] h-[50px] mr-4 mb-3 flex justify-center">
+
+                            <div class="w-1/3 h-full flex items-center justify-center">
+
+                                <h1 class="text-[18px] font-poppins translate-y-[2px] pr-4">Viewing:</h1>
+                                
+                            </div>
+
+                            <select
+                            bind:value={currentViewingPrompt}
+                            class="w-2/3 h-full relative appearance-none rounded-[15px] text-center  bg-darkgray text-white cursor-pointer"
+                            >
+                            <option value={0}>Current Prompt</option>
+                            {#each (totalResponseSet.slice(1)) as responseSet, i}
+                            <option value={i+1}>Prompt {i+1}</option>
+                            {/each}
+                            </select>
+
+
+                    </div>
                 </div>
     
                 <div class="w-full h-[98%] overflow-y-auto">
                     <ul>
-                        {#each currentResponseSet as item, i}
+
+
+                        {#if currentViewingPrompt == 0}
+
+                            {#each currentResponseSet as item, i}
 
                         {#if item.status == 0}
                         <li>
@@ -847,7 +892,128 @@
                         {/if}
 
 
-                        {/each}
+                            {/each}
+
+                        {:else}
+
+                            {#each totalResponseSet[currentViewingPrompt] as item, i}
+
+                                {#if !(item.responses[(currentViewingPrompt-1)]) }
+                                <li>
+                                    <div class="w-full h-[45px] border-b-2 relative">
+            
+                                        <div class="w-full h-full pl-[10px] absolute z-10 flex">
+                                            <div class="w-fit h-full zinc-400 pr-4 flex items-center">
+                                                <p class="text-darkgray font-poppins translate-y-1 text-[20px] font-semibold">
+                                                    {item.name}
+                                                </p>
+                                            </div>
+                                            <div class="flex-grow h-full flex justify-between">
+                                                <div class="w-full h-full flex relative">
+                                                    <div class="h-full w-[20px] flex justify-center items-center text-[40px] pointer-events-none select-none">⋅</div>
+                                                    <div class="h-full flex-grow flex items-center">
+                                                        <p class="translate-y-1 font-poppins text-[17px] italic pl-4 text-darkgray">
+                                                            
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="w-[150px] h-ful flex justify-center items-center">
+                                                    <p class="font-poppins font-medium translate-y-1 text-[23px] italic text-red-800">
+                                                    Silent
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+            
+                                        <div class="w-full h-full absolute z-0 flex">
+                                            <div class="w-2/3 h-full"></div>
+                                            <div class="w-1/3 h-full bg-gradient-to-r from-transparent to-red-200"></div>
+                                        </div>
+            
+                                    </div>
+                                </li>
+
+                                {:else if item.responses[(currentViewingPrompt-1)].Promptstatus == 0}
+
+                                <li>
+                                    <div class="w-full h-[45px] border-b-2 relative">
+            
+                                        <div class="w-full h-full pl-[10px] absolute z-10 flex">
+                                            <div class="w-fit h-full zinc-400 pr-4 flex items-center">
+                                                <p class="text-darkgray font-poppins translate-y-1 text-[20px] font-semibold">
+                                                    {item.name}
+                                                </p>
+                                            </div>
+                                            <div class="flex-grow h-full flex justify-between">
+                                                <div class="w-full h-full flex relative">
+                                                    <div class="h-full w-[20px] flex justify-center items-center text-[40px] pointer-events-none select-none">⋅</div>
+                                                    <div class="h-full flex-grow flex items-center">
+                                                        <p class="translate-y-1 font-poppins text-[17px] italic pl-4 text-darkgray">
+                                                        
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="w-[150px] h-ful flex justify-center items-center">
+                                                    <p class="font-poppins font-medium translate-y-1 text-[23px] italic text-primary">
+                                                        Joined
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+            
+                                        <div class="w-full h-full absolute z-0 flex">
+                                            <div class="w-2/3 h-full"></div>
+                                            <div class="w-1/3 h-full bg-gradient-to-r from-transparent to-[#a8c4d0]"></div>
+                                        </div>
+            
+                                    </div>
+                                </li>
+
+                                {:else}
+
+                                <li>
+                                    <div class="w-full h-[45px] border-b-2 relative">
+            
+                                        <div class="w-full h-full pl-[10px] absolute z-10 flex">
+                                            <div class="w-fit h-full zinc-400 pr-4 flex items-center">
+                                                <p class="text-darkgray font-poppins translate-y-1 text-[20px] font-semibold">
+                                                    {item.name}
+                                                </p>
+                                            </div>
+                                            <div class="flex-grow h-full flex justify-between">
+                                                <div class="w-full h-full flex relative">
+                                                    <div class="h-full w-[20px] flex justify-center items-center text-[40px] pointer-events-none select-none">⋅</div>
+                                                    <div class="h-full flex-grow flex items-center">
+                                                        <p class="translate-y-1 font-poppins text-[17px] italic pl-4 text-darkgray">
+                                                            <span class=" not-italic font-semibold">({item.responses[(currentViewingPrompt-1)].confidence}/5)</span>  {item.responses[(currentViewingPrompt-1)].response}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="w-[150px] h-ful flex justify-center items-center">
+                                                    <p class="font-poppins font-medium translate-y-1 text-[23px] italic text-green-700">
+                                                        Replied
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+            
+                                        <div class="w-full h-full absolute z-0 flex">
+                                            <div class="w-2/3 h-full"></div>
+                                            <div class="w-1/3 h-full bg-gradient-to-r from-transparent to-green-200"></div>
+                                        </div>
+            
+                                    </div>
+                                </li>
+
+                                {/if}
+
+
+                            {/each}
+
+                        {/if}
                 </div>
     
             </div>
