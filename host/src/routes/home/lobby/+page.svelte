@@ -9,7 +9,7 @@
  
     let promptField = ''
     let hostId = $page.data.session?.user?._id
-    let lobbyMembershipLevel: string = $page.data.session?.user?.membershipLevel
+    let lobbyMembershipLevel: any = $page.data.session?.user?.membershipLevel
     let joincode = ''
     let currentPrompt: number = 0
     let currentResponseSet: any = []
@@ -59,6 +59,20 @@
  
     let currentGroup = ''
     let currentGroupValue = ''
+
+
+    type Prompt = {
+        promptBody: string;
+        promptIndex: number;
+    }
+
+    let allPrompts: {
+        prompts: Prompt[];
+        numberOfPrompts: number;
+    } = {
+        prompts: [],
+        numberOfPrompts: 0,
+    }
  
  
  
@@ -248,15 +262,15 @@
     }
   
     function submitPrompt() {
-      let promptContent = {
-        prompt: promptField
-      }
+        allPrompts.prompts.push({ promptBody: "My first prompt", promptIndex: currentPrompt })
+        allPrompts.numberOfPrompts = currentPrompt
+
       let route = `https://lection-backend.fly.dev/hostsubmitprompt/${joincode}/${hostId}`
       //submit prompt to mongodb
       fetch(route, 
     {
         method: "POST", 
-        body: JSON.stringify(promptContent),
+        body: JSON.stringify(allPrompts),
         headers: {
           'Content-Type': 'application/json'
         }
