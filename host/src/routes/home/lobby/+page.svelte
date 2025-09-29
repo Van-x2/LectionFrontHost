@@ -250,7 +250,8 @@
   
     function submitPrompt() {
         let promptContent = {
-            prompt: promptField
+            prompt: promptField,
+            promptIndex: currentPrompt
         }
 
       let route = `https://lection-backend.fly.dev/hostsubmitprompt/${joincode}/${hostId}`
