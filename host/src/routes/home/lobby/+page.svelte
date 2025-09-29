@@ -60,19 +60,6 @@
     let currentGroup = ''
     let currentGroupValue = ''
 
-
-    type Prompt = {
-        promptBody: string;
-        promptIndex: number;
-    }
-
-    let allPrompts: {
-        prompts: Prompt[];
-        numberOfPrompts: number;
-    } = {
-        prompts: [],
-        numberOfPrompts: 0,
-    }
  
  
  
@@ -262,15 +249,16 @@
     }
   
     function submitPrompt() {
-        allPrompts.prompts.push({ promptBody: "My first prompt", promptIndex: currentPrompt })
-        allPrompts.numberOfPrompts = currentPrompt
+        let promptContent = {
+            prompt: promptField
+        }
 
       let route = `https://lection-backend.fly.dev/hostsubmitprompt/${joincode}/${hostId}`
       //submit prompt to mongodb
       fetch(route, 
     {
         method: "POST", 
-        body: JSON.stringify(allPrompts),
+        body: JSON.stringify(promptContent),
         headers: {
           'Content-Type': 'application/json'
         }
