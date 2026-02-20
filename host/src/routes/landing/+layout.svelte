@@ -3,7 +3,7 @@
   import { signIn } from "@auth/sveltekit/client";
 
 </script>
-<div class="w-screen h-screen relative font-poppins font-medium overflow-x-hidden flex flex-col">
+<div class="w-screen h-screen relative font-poppins font-medium overflow-x-hidden flex flex-col bg-white">
   <div class="w-full h-[150px] flex items-center flex-shrink-0">
     <div class="w-full h-14">
       <div class="w-full h-full flex pl-[5%] pr-[7%] justify-between">
