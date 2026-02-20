@@ -19,7 +19,7 @@ setTimeout(() => {
 })
 
 </script>
-    <div class="w-full min-h-screen">
+    <div class="w-full min-h-screen bg-white">
         <div class="w-full h-screen flex justify-center">
             <div class="h-full w-[30%] flex flex-col">
                 <div class="w-full h-[16%]"></div>
