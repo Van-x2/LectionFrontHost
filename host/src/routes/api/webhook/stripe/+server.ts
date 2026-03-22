@@ -140,28 +140,7 @@ export async function POST({ request }) {
             console.error('Error handling subscription cancellation', err)
           }
           break
-        
-        // Handle subscription cancellation
-        console.log('Subscription cancelled:', event.data.object)
-
-        const client = await getClient()
-        const Users = client.db('Users')
-        const hosts = Users.collection('hosts')
-        
-        
-        // Update the user's membership level
-        const updateResult = await hosts.updateOne(
-          { stripeCustomerId: event.data.object.customer },
-          { 
-            $set: { 
-              membershipLevel: 'standard'
-            } 
-          }
-        )
-
-
-        
-        break
+          
         
       case 'invoice.payment_succeeded':
         // Handle successful payment

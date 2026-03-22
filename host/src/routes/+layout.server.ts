@@ -1,5 +1,5 @@
 import type { LayoutServerLoad } from "./$types"
-import { getClient } from "$lib/mongoconnect"
+import { connectToDatabase } from "$lib/mongoconnect"
 import { redirect } from "@sveltejs/kit"
 
 
@@ -30,13 +30,14 @@ export const load: LayoutServerLoad = async (event) => {
       }
       if(event.url.pathname == '/home/profile') {
         redirect(302, '/user')
+        
       }
     }
 
     //check if the user has an account type session
     if (session?.user) {
         //create a MongoDB client to connect with
-        const client = await getClient()
+        const client = await connectToDatabase()
 
         //defines collection & db in Mongo
         const Users = client.db('Users')
@@ -101,6 +102,8 @@ export const load: LayoutServerLoad = async (event) => {
         //update the session data returned to contain Mongo user info instead of Oauth user info
         session.user = MongoUser
         session.BulletinBoardEntries = BulletinBoardEntries
+
+        //Content is now accessible via "page" store in any route that are childeren of this layout
 
     }
     

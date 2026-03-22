@@ -15,14 +15,6 @@ export async function connectToDatabase() {
     return client
 }
 
-export function getClient() {
-    if (!client) {
-
-        return connectToDatabase()
-    }
-    return client
-}
-
 export async function closeDatabase() {
     if(client) {
         await client.close()
